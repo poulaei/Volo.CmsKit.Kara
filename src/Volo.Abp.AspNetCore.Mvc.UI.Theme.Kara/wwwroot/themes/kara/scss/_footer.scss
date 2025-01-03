@@ -1,0 +1,109 @@
+// footer section all style from here==============
+.home__one__footer{
+    background: rgba(254, 247, 243, 0.5);
+}
+.footer-area{
+.footer__widget{
+    display: inline-block;
+    width: 330px;
+    margin: 0 auto;
+    ul{list-style: none; margin: 0;padding: 0;}
+    li{padding:5px 0;}
+   ul li a{  
+        font-size: 18px;
+        opacity: 0.7;
+        font-weight: 400;
+        @include transition(0.3s);
+        &:hover{color: $theme-color;}
+    }
+    h3{
+        font-size: 30px;
+        line-height: 46px;
+        font-weight: 900;
+    }
+
+}
+.footer__widget__one{
+    p{font-size: 16px;}
+    ul li a{
+        font-size: 16px;
+        img{
+            margin-right:10px;
+        } 
+    }
+}
+.footer__contact{
+    .subscribe__form{
+        .submit-btn{
+            right: 0;
+            top: 0;
+            height: 70px;
+        }
+    }
+    .location__one{
+        a{
+            font-size: 18px;
+            line-height: 30px;
+            margin-right: 10px;
+            i{
+                color: $black;
+                font-size: 22px;
+                font-weight: 700;
+            }
+            span{
+                color: $theme-color;
+            }
+        }
+    }
+}
+// copyright__area start
+.copyright__area{
+    .copyright__text{
+        a{
+            color: $black;
+            @include transition(0.3s);
+            &:hover{
+                color: $theme-color;
+            }
+        }
+    }
+    ul li{
+        display: inline-block;
+        margin-left: 20px;
+        font-size: 16px;
+    }
+    ul li a{
+        color: $black;
+        @include transition(0.3s);
+        &:hover{
+            color: $theme-color;
+        }
+    }
+}
+.section__one__bg{
+    top: -4px;
+    left: 0;
+    z-index: -2;
+    width: 100%;
+    @media #{$max-xl} {
+        display: none;
+    }
+}
+.star__shape__02{
+    top: 8%;
+    right: 8%;
+    @include transition(0.3s);
+    animation:scale-up-one 3s ease-in-out 0s infinite alternate-reverse both;
+    @media #{$max-xl} {
+        display: none;
+    }
+}
+.pattern__shape__06{
+    top:30%;
+    right: 8%;
+    @include transition(0.3s);
+    @media #{$max-xl} {
+        display: none;
+    }
+}
+}

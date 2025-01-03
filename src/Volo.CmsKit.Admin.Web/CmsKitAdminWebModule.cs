@@ -1,0 +1,274 @@
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.DependencyInjection;
+using Volo.Abp.AspNetCore.ExceptionHandling;
+using Volo.Abp.AspNetCore.Mvc;
+using Volo.Abp.AspNetCore.Mvc.Localization;
+using Volo.Abp.AspNetCore.Mvc.UI.Theme.Shared.PageToolbars;
+using Volo.Abp.AspNetCore.Mvc.UI.Theming;
+using Volo.Abp.AutoMapper;
+using Volo.Abp.Http.ProxyScripting.Generators.JQuery;
+using Volo.Abp.Localization;
+using Volo.Abp.Modularity;
+using Volo.Abp.ObjectExtending;
+using Volo.Abp.ObjectExtending.Modularity;
+using Volo.Abp.Threading;
+using Volo.Abp.UI.Navigation;
+using Volo.Abp.VirtualFileSystem;
+using Volo.CmsKit.Admin.MediaDescriptors;
+using Volo.CmsKit.Admin.Web.Menus;
+using Volo.CmsKit.Localization;
+using Volo.CmsKit.Permissions;
+using Volo.CmsKit.Web;
+
+namespace Volo.CmsKit.Admin.Web;
+
+[DependsOn(
+    typeof(CmsKitAdminApplicationContractsModule),
+    typeof(CmsKitCommonWebModule)
+    )]
+    public class CmsKitAdminWebModule : AbpModule
+{
+    private readonly static OneTimeRunner OneTimeRunner = new OneTimeRunner();
+    
+    public override void PreConfigureServices(ServiceConfigurationContext context)
+    {
+        context.Services.PreConfigure<AbpMvcDataAnnotationsLocalizationOptions>(options =>
+        {
+            options.AddAssemblyResource(
+                typeof(CmsKitResource),
+                typeof(CmsKitAdminWebModule).Assembly,
+                typeof(CmsKitAdminApplicationContractsModule).Assembly,
+                typeof(CmsKitCommonApplicationContractsModule).Assembly
+            );
+        });
+
+        PreConfigure<IMvcBuilder>(mvcBuilder =>
+        {
+            mvcBuilder.AddApplicationPartIfNotExists(typeof(CmsKitAdminWebModule).Assembly);
+        });
+    }
+
+    public override void ConfigureServices(ServiceConfigurationContext context)
+    {
+        Configure<AbpNavigationOptions>(options =>
+        {
+            options.MenuContributors.Add(new CmsKitAdminMenuContributor());
+        });
+
+        Configure<AbpVirtualFileSystemOptions>(options =>
+        {
+            options.FileSets.AddEmbedded<CmsKitAdminWebModule>("Volo.CmsKit.Admin.Web");
+        });
+
+        context.Services.AddAutoMapperObjectMapper<CmsKitAdminWebModule>();
+        Configure<AbpAutoMapperOptions>(options => { options.AddMaps<CmsKitAdminWebModule>(validate: true); });
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AuthorizeFolder("/CmsKit/Tags/", CmsKitAdminPermissions.Tags.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/Tags/CreateModal", CmsKitAdminPermissions.Tags.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/Tags/UpdateModal", CmsKitAdminPermissions.Tags.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/Pages", CmsKitAdminPermissions.Pages.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/Pages/Create", CmsKitAdminPermissions.Pages.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/Pages/Update", CmsKitAdminPermissions.Pages.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/Pages/SetAsHomePage", CmsKitAdminPermissions.Pages.SetAsHomePage);
+            options.Conventions.AuthorizeFolder("/CmsKit/Blogs", CmsKitAdminPermissions.Blogs.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/Blogs/Create", CmsKitAdminPermissions.Blogs.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/Blogs/Update", CmsKitAdminPermissions.Blogs.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/BlogPosts", CmsKitAdminPermissions.BlogPosts.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/BlogPosts/Create", CmsKitAdminPermissions.BlogPosts.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/BlogPosts/Update", CmsKitAdminPermissions.BlogPosts.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/Comments/", CmsKitAdminPermissions.Comments.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/Comments/Details", CmsKitAdminPermissions.Comments.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/Menus", CmsKitAdminPermissions.Menus.Default);
+            options.Conventions.AuthorizePage("/CmsKit/Menus/MenuItems/CreateModal", CmsKitAdminPermissions.Menus.Create);
+            options.Conventions.AuthorizePage("/CmsKit/Menus/MenuItems/UpdateModal", CmsKitAdminPermissions.Menus.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/Menus/MenuItems", CmsKitAdminPermissions.Menus.Update);
+            options.Conventions.AuthorizeFolder("/CmsKit/GlobalResources", CmsKitAdminPermissions.GlobalResources.Default);
+            // Added By Poolaei @1402/11/27 ==================
+            options.Conventions.AuthorizeFolder("/CmsKit/GalleryImages", CmsKitAdminPermissions.GalleryImages.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/GalleryImages/Create", CmsKitAdminPermissions.GalleryImages.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/GalleryImages/Update", CmsKitAdminPermissions.GalleryImages.Update);
+            //===================================================
+            options.Conventions.AuthorizeFolder("/CmsKit/ContentBoxes", CmsKitAdminPermissions.ContentBoxes.Default);
+            options.Conventions.AuthorizeFolder("/CmsKit/ContentBoxes/Create", CmsKitAdminPermissions.ContentBoxes.Create);
+            options.Conventions.AuthorizeFolder("/CmsKit/ContentBoxes/Update", CmsKitAdminPermissions.ContentBoxes.Update);
+        });
+
+        Configure<RazorPagesOptions>(options =>
+        {
+            options.Conventions.AddPageRoute("/CmsKit/Tags/Index", "/Cms/Tags");
+            options.Conventions.AddPageRoute("/CmsKit/Pages/Index", "/Cms/Pages");
+            options.Conventions.AddPageRoute("/CmsKit/Pages/Create", "/Cms/Pages/Create");
+            options.Conventions.AddPageRoute("/CmsKit/Pages/Update", "/Cms/Pages/Update/{Id}");
+            options.Conventions.AddPageRoute("/CmsKit/Blogs/Index", "/Cms/Blogs");
+            options.Conventions.AddPageRoute("/CmsKit/BlogPosts/Index", "/Cms/BlogPosts");
+            options.Conventions.AddPageRoute("/CmsKit/BlogPosts/Create", "/Cms/BlogPosts/Create");
+            options.Conventions.AddPageRoute("/CmsKit/BlogPosts/Update", "/Cms/BlogPosts/Update/{Id}");
+            options.Conventions.AddPageRoute("/CmsKit/Comments/Index", "/Cms/Comments");
+            options.Conventions.AddPageRoute("/CmsKit/Comments/Details", "/Cms/Comments/{Id}");
+            options.Conventions.AddPageRoute("/CmsKit/Menus/MenuItems/Index", "/Cms/Menus/Items");
+            options.Conventions.AddPageRoute("/CmsKit/GlobalResources/Index", "/Cms/GlobalResources");
+            // Added By Poolaei @1402/11/27
+            options.Conventions.AddPageRoute("/CmsKit/GalleryImages/Index", "/Cms/GalleryManagement");
+            options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Index", "/Cms/ContentBoxes");
+            options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Create", "/Cms/ContentBoxes/Create");
+            options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Update", "/Cms/ContentBoxes/Update/{Id}");
+        });
+          
+    Configure<AbpPageToolbarOptions>(options =>
+        {
+
+            options.Configure<Pages.CmsKit.Tags.IndexModel>(
+                toolbar =>
+                {
+                    toolbar.AddButton(
+                        LocalizableString.Create<CmsKitResource>("NewTag"),
+                        icon: "plus",
+                        name: "NewButton",
+                        requiredPolicyName: CmsKitAdminPermissions.Tags.Create
+                    );
+                }
+            );
+
+            options.Configure<Pages.CmsKit.Pages.IndexModel>(
+                toolbar =>
+                {
+                    toolbar.AddButton(
+                        LocalizableString.Create<CmsKitResource>("NewPage"),
+                        icon: "plus",
+                        name: "CreatePage",
+                        requiredPolicyName: CmsKitAdminPermissions.Pages.Create
+                    );
+                });
+
+            options.Configure<Pages.CmsKit.Blogs.IndexModel>(
+                toolbar =>
+                {
+                    toolbar.AddButton(
+                        LocalizableString.Create<CmsKitResource>("NewBlog"),
+                        icon: "plus",
+                        name: "CreateBlog",
+                        id: "CreateBlog",
+                        requiredPolicyName: CmsKitAdminPermissions.Blogs.Create
+                        );
+                });
+
+            options.Configure<Pages.CmsKit.BlogPosts.IndexModel>(
+                toolbar =>
+                {
+                    toolbar.AddButton(
+                        LocalizableString.Create<CmsKitResource>("NewBlogPost"),
+                        icon: "plus",
+                        name: "CreateBlogPost",
+                        id: "CreateBlogPost",
+                        requiredPolicyName: CmsKitAdminPermissions.BlogPosts.Create
+                        );
+                });
+
+            options.Configure<Pages.CmsKit.Menus.MenuItems.IndexModel>(
+                toolbar =>
+                {
+                    toolbar.AddButton(
+                        LocalizableString.Create<CmsKitResource>("NewMenuItem"),
+                        icon: "plus",
+                        name: "CreateMenuItem",
+                        id: "CreateMenuItem",
+                        requiredPolicyName: CmsKitAdminPermissions.Menus.Update
+                        );
+                });
+            //Added By Poolaei @1403/01/24
+            options.Configure<Pages.CmsKit.GalleryImages.IndexModel>(
+               toolbar =>
+               {
+                   toolbar.AddButton(
+                       LocalizableString.Create<CmsKitResource>("NewPicture"),
+                       icon: "plus",
+                       name: "CreateImage",
+                       id: "CreateImage",
+                       requiredPolicyName: CmsKitAdminPermissions.GalleryImages.Create
+                       );
+               });
+            options.Configure<Pages.CmsKit.ContentBoxes.IndexModel>(
+              toolbar =>
+              {
+                  toolbar.AddButton(
+                      LocalizableString.Create<CmsKitResource>("NewContentBox"),
+                      icon: "plus",
+                      name: "CreateContentBox",
+                      id: "CreateContentBox",
+                      requiredPolicyName: CmsKitAdminPermissions.ContentBoxes.Create
+                      );
+              });
+        });
+
+        Configure<DynamicJavaScriptProxyOptions>(options =>
+        {
+            //options.DisableModule(CmsKitAdminRemoteServiceConsts.ModuleName);
+            options.EnableModule(CmsKitAdminRemoteServiceConsts.ModuleName);
+        });
+      
+        Configure<AbpAspNetCoreMvcOptions>(options =>
+        {
+            options.ConventionalControllers.FormBodyBindingIgnoredTypes.Add(typeof(CreateMediaInputWithStream));
+        });
+       
+        
+    }
+
+    public override void PostConfigureServices(ServiceConfigurationContext context)
+    {
+        OneTimeRunner.Run(() =>
+        {
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.Blog,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Blogs.CreateModalModel.CreateBlogViewModel) },
+                    editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Blogs.UpdateModalModel.UpdateBlogViewModel) }
+                );
+            
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.BlogPost,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.BlogPosts.CreateModel.CreateBlogPostViewModel) },
+                    editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.BlogPosts.UpdateModel.UpdateBlogPostViewModel) }
+                );
+            
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.MenuItem,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Menus.MenuItems.CreateModalModel.MenuItemCreateViewModel) },
+                    editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Menus.MenuItems.UpdateModalModel.MenuItemUpdateViewModel) }
+                );
+            
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.Page,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Pages.CreateModel.CreatePageViewModel) },
+                    editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Pages.UpdateModel.UpdatePageViewModel) }
+                );
+
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.Tag,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Tags.CreateModalModel.TagCreateViewModel) },
+                    editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.Tags.EditModalModel.TagEditViewModel) }
+                );
+            //Added By Poolaei @1403/01/24
+            ModuleExtensionConfigurationHelper
+                .ApplyEntityConfigurationToUi(
+                    CmsKitModuleExtensionConsts.ModuleName,
+                    CmsKitModuleExtensionConsts.EntityNames.GalleryImage,
+                    createFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.GalleryImages.CreateModalModel.GalleryImageCreateViewModel) }//,
+                   // editFormTypes: new[] { typeof(Volo.CmsKit.Admin.Web.Pages.CmsKit.GalleryImages.EditModalModel.GalleryImageEditViewModel) }
+                );
+
+
+        });
+    }
+}

@@ -1,0 +1,255 @@
+.boxed-wrapper{
+    background: #E9E9E9;
+    position: relative;
+    .page-wrapper{
+        max-width: 1550px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index:1;
+        background: $white;
+        @media #{$max-xl} {
+            width: 100%;
+        }
+    }
+    .theme__main__banner{
+        .theme__content{
+            &::after{
+                bottom: 1%;
+                left: 63%;
+            }
+        }
+    }
+    .about__section {
+        .star__shape__02 {
+            top: 0%;
+            right: 3%;
+        }
+    }
+    .video__section{
+        .video__section__wrapper{
+            z-index: 2;
+            position: relative;
+        }
+        .home__one__section__two__01{
+            z-index: 1;
+        }
+        .popup-video {
+            bottom:0px;;
+        }
+    }
+    .service__section{
+        .star__shape__03{
+            display: none;
+        }
+        .pattern__shape__01{
+            top: 1%;
+            right: 0%; 
+        }
+    }
+    .project__section {
+        .star__shape__04 {
+            top: 0%;
+            right: 5%;
+        }
+    }
+    .subscribe__section{
+        .subscriber__rapper{
+            z-index: 2;
+        }
+        .subscriber__01{
+            z-index: 1;
+        }
+    }
+}
+.onepage-rapper{
+    .page-one-wrapper{
+        .theme-main-menu{
+            .main-menu ul li a{
+                &::after{
+                    display: none;
+                }
+            }
+        }
+        .theme__main__banner {
+            overflow: hidden;
+            background: url(../img/hero/hero__five_bg__01.png) no-repeat, #000000;
+            background-size: cover;
+            background-position: center center;
+            top: -20px;
+            .banner__description,
+            .banner__main__title{
+                color: $black;
+            }
+            .ht__btn__two{
+                background: $black;
+                border: 1px solid transparent;
+                &::before{
+                    background: $theme-color;
+                    
+                }
+                &:hover{
+                    border: 1px solid $theme-color;
+                }
+            }
+            .theme__content{
+                &::after{
+                    display: none;
+                }
+            }
+        }
+        .home__five__contact{
+            background: url(../img/contact/home__five__contact.png) no-repeat;
+            background-size: cover;
+            background-position: center center;
+            .contact__five__rapper{
+                background: white;
+                padding: 100px 84px;
+                @media #{$max-xl} {
+                    padding: 60px 40px;
+                }
+            }
+            .section__title__main{
+                font-size: 60px;
+                font-weight: 400;
+                font-style: italic;
+                @media #{$max-xl} {
+                    font-size:50px;
+                }
+                @media #{$max-xl} {
+                    font-size:35px;
+                }
+                span{
+                    color: $theme-color;
+                }
+            }
+            .widget-form{
+                width: 80%;
+                input,textarea{
+                    border-bottom: 1px solid $black;
+                }
+                input:focus,textarea:focus{
+                    border: none;
+                    border-bottom: 1px solid $black;
+                }
+                label {
+                    cursor: pointer;
+                    font-size: 16px;
+                    font-weight: 400;
+                }
+            }
+            .ht_btn{
+                display: block;
+            }
+        }
+        .about__five__section{
+            .banner__main__title{
+                font-size: 120px;
+                color: $theme-color;
+                @media #{$max-xl} {
+                    font-size: 85px;
+                }
+                @media #{$max-lg} {
+                    font-size: 65px;
+                }
+                @media #{$max-md} {
+                    font-size: 45px;
+                }
+            }
+            small{
+                font-size: 20px;
+            }
+            .section__title__main {
+                font-size: 65px;
+                font-weight: 400;
+                font-style: italic;
+                &::after{
+                    display: none;
+                }
+                @media #{$max-lg} {
+                    font-size: 55px;
+                }
+                @media #{$max-md} {
+                    font-size: 32px;
+                }
+            }
+            .about__img{
+                width: 10%;
+            }
+            .about__text{
+                h6{font-size: 22px;}
+            }
+            .star__shape__02 {
+                top: 63%;
+                right: 13%;
+            }
+        }
+        .footer__home__five{
+            background: $black;
+            .footer__widget__one{
+                p{
+                    color: $white;
+                }
+            }
+            .widget__title{
+                color: $white;
+            }
+            .footer__widget ul li a{
+                color: $white;
+                @include transition(0.3s);
+                &:hover{
+                    color: $theme-color;
+                }
+            }
+            .social_media a{
+                border: 1px solid $white;
+                &:hover {
+                    color: white;
+                    background: $theme-color;
+                    border: 1px solid transparent;
+                    filter:none;
+                }
+            }
+            .social_media a img {
+                transition: filter 0.1s;
+                filter: brightness(100%);
+            }
+            .devider__line {
+                width: 100%;
+                height: 1px;
+                background:rgba($color: $white, $alpha: 0.1)
+            }
+            .copyright__area {
+                p{
+                    color: $white;
+                }
+                .copyright__text a {
+                    color: $white;
+                    @include transition(0.3s);
+                    &:hover{
+                        color: $theme-color;
+                    }
+                }
+                 ul li a {
+                    color: $white;
+                    @include transition(0.3s);
+                    &:hover{
+                        color: $theme-color;
+                    }
+                }
+            }
+        }
+        .home__two__section__five{
+            background: none;
+            .project__one__bg__01 {
+                top: -18%;
+                left: 0;
+                z-index: -1;
+                height: 1080px;
+                @media #{$max-xl} {
+                    display: none;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,104 @@
+.subscribe__section{
+    .section__title__main{
+        color: $white;
+    }
+    .section__content{
+        a{
+            color: $white;
+            margin-right: 8px;
+            font-size: 16px;
+            @include transition(0.3s);
+            &:hover{
+                color: $theme-color;
+            }
+        }
+    }
+    .subscriber__01{
+        left: 0;
+        top: 0;
+        z-index:-1;
+        height: 380px;
+    }
+}
+.subscribe__two__section{
+    .section__title{
+        width: 75%;
+        @media #{$max-xl} {
+            width: 100%;
+        }     
+    }
+    .subscriber__01{
+        left: 0;
+        top: 0;
+        z-index:-1;
+        height:487px;
+    }
+    p{
+        color: $white;
+    }
+    .ht_btn{
+        text-transform: capitalize;
+        background: $black;
+        padding: 21px 54px;
+        font-size: 24px;
+        font-weight: 700;
+        &:before{
+            background:$theme-color ;
+        }
+        @media #{$max-lg} {
+            font-size:18px;
+            font-weight: 500;
+    
+        }
+    }
+    &::after{
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index:-1;
+        content: '';
+        width: 100%;
+        height:487px;
+        background: rgba($color: $theme-color, $alpha: 0.8);
+    }
+    .arrow__shape__04{
+        left: 5%;
+        top: 5%;
+        @media #{$max-xl} {
+            display: none;
+        }
+
+    }
+   .arrow__shape__05 {
+        right: 10%;
+        top: 35%;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+}
+.subscribe__section__three{
+    .section__title__main{
+        color: $black;
+    }
+    .subscribe__form{
+        .submit-btn{
+            right: 96px;
+            top: 2px;
+            height: 65px;
+            @media #{$max-xl} {
+                right:34px;
+            }
+            @media #{$max-lg} {
+                display: none;
+            }  
+        }
+    }
+    .arrow__shape__04{
+        left: -18%;
+        top: 40%;
+        @media #{$max-xl} {
+            display: none;
+        } 
+    }
+}

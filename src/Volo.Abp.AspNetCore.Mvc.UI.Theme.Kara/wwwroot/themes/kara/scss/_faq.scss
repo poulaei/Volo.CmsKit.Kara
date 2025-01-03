@@ -1,0 +1,134 @@
+
+.faq{
+    .contact__me{
+        width: 105px;
+        height: 105px;
+        background: $theme-color;
+        color: $white;
+        text-align: center;
+        line-height:100px;
+        border-radius: 50%;
+        @include transition(0.3s);
+        &:hover{
+            background: $green;
+        }
+    }
+    h4{
+        font-size: 28px;
+        line-height: 50px;
+    }
+    .accordion{
+        border: none;
+        outline: none;
+    }
+    .accordion-header{
+        border: none;
+    }
+    .accordion-item:not(.collapsed){
+        border-radius: 5px;
+        color: #01050C;
+    }
+    .accordion-button{
+        border-radius: 5px;
+        &::after{
+            position: absolute;
+            background: none;
+            content: '+';
+            height: auto;
+            font-size: 36px;
+            font-weight:500;
+            transition: all 0.3s ease-in-out;
+            line-height: 1;
+            right: 5%;
+            top: 0px;
+        }
+    }
+    .accordion-button.collapsed {
+        border-radius: 5px;
+        color: #010212;
+        background: #F8EEF0;
+        transition: all 0.3s ease-in-out;
+        padding: 10px 18px;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 30px;
+    }
+    .accordion-button:not(.collapsed){
+        border-radius: 5px;
+        color: #010212;
+        background: #F8EEF0;
+        transition: all 0.3s ease-in-out;
+        padding-top:10px;
+        padding: 10px 18px;
+        font-size: 22px;
+        font-weight: 600;
+        line-height: 30px;
+        background: $white;
+        border: none;
+        box-shadow: none;
+        &::after{
+            position: absolute;
+            right: 5%;
+            top: 9px;
+            background: none;
+            content: '-';
+            height: auto;
+            font-weight: 700;
+            font-size: 36px;
+            transition: all 0.3s ease-in-out;
+            line-height:1.5;
+        }
+    }
+    .accordion-body{
+        p{
+            color: #010212;
+            font-size: 16px;
+            line-height: 32px;
+            padding-right: 126px;
+        }
+    }
+}
+.page-error{
+    h4{
+        font-size: 34px;
+        line-height: 34px;
+
+    }
+    .search-form{
+        input{
+            padding-left: 30px;
+            background: white;
+            border: 1px solid #03060d;
+            border-radius: 10px;
+            margin: auto;
+            width: 70%;
+            height: 60px;
+            &::placeholder {
+                font-size: 16px;
+                color: rgba(#181818, 0.8);
+            }
+            &::-moz-placeholder {
+                font-size: 16px;
+                color: rgba(#181818, 0.8);
+            }
+            &::-ms-placeholder {
+                font-size: 16px;
+                color: rgba(#181818, 0.8);
+            }
+            &::-webkit-placeholder {
+                font-size: 16px;
+                color: rgba(#181818, 0.8);
+            }
+            &::-o-placeholder {
+                font-size: 16px;
+                color: rgba(#181818, 0.8);
+            }
+        }
+    }
+    .ht_btn{
+        background: #357ffe;
+        text-transform: capitalize;
+        border-radius: 5px;
+        padding: 18px 38px;
+    }
+}

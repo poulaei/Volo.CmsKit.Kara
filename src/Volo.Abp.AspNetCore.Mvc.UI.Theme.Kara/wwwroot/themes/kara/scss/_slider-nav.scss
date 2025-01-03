@@ -1,0 +1,39 @@
+.home__two__section__three{
+    .section__title__main{
+        &::after{
+            position: absolute;
+            content: url('../img/shape/line__shape__04.svg');
+            top: 35%;
+            right: 26.5%;
+            @media #{$max-xl} {
+                display: none;
+            }
+        }
+    }
+}
+.partner__section__three{
+    .partner-container{
+        max-width: 1350px;
+        margin: auto;
+    }
+    .partner__img{
+        width: 300px;
+        height: 128px;
+        img{
+            border: 1px solid $black;
+        }
+   }
+}
+.about__partner{
+    .partner__img{
+        width: 300px;
+        height: 128px;
+        background: $white;
+        box-shadow: 0px 15px 10px 0px rgba($color: $black, $alpha: 0.1);
+            -webkit-box-shadow:0px 15px 10px 0px rgba($color: $black, $alpha: 0.1);
+            -moz-box-shadow:0px 15px 10px 0px rgba($color: $black, $alpha: 0.1);
+        img{
+            border: 1px solid transparent;
+        }
+    }
+}

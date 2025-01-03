@@ -1,0 +1,10 @@
+{
+  "devDependencies": {
+    "gulp": "^5.0.0"
+  },
+  "dependencies": {
+    "@progress/kendo-theme-bootstrap": "^8.0.1",
+    "@progress/kendo-theme-default": "^8.0.1",
+    "@progress/kendo-ui": "^2024.2.514"
+  }
+}

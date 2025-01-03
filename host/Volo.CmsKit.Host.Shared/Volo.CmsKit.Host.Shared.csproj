@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace />
+	</PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Volo.CmsKit.Domain.Shared\Volo.CmsKit.Domain.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

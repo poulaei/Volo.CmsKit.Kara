@@ -1,0 +1,70 @@
+.team__section{
+    .team-container{max-width:1520px; margin: auto;}
+    .section__title__main{
+        &::after{
+            position: absolute;
+            content: url('../img/shape/line__shape__05.svg');
+            top: 30%;
+            left: 47.5%;
+            display: inline-block;
+            @media #{$max-xl} {
+                display: none;
+            }
+        }
+    }
+    .team__main__content{
+        &:hover{
+            .team__content{
+                transform: scale(1);
+                opacity: 1;
+                visibility:visible;
+            }
+        }
+    }
+    .team__content{
+        position:absolute;
+        padding: 30px 50px;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 400px;
+        @include transition(0.5s);
+        transform: scale(0);
+        opacity: 0;
+        overflow: hidden;
+        visibility: hidden;
+    }
+    .team__link{
+        display:block;
+    }
+    .icon__link{
+        display: inline-block;
+    }
+    .icon{
+        text-align: center;
+        line-height: 60px;
+        width: 60px;
+        height: 60px;
+        background: $theme-color;
+        @include transition(0.3s);
+        &:hover{
+            background: $black;
+        }
+    }
+    .team__text{
+        background: $theme-color;
+        padding: 15px 0;
+        h5{
+            font-size: 22px;
+            font-weight: 500;
+            line-height: normal;
+            color: $white;
+        }
+        span{
+            font-size: 18px;
+            color: $white;
+            text-transform: capitalize;
+        }
+    }
+
+}

@@ -1,0 +1,31 @@
+//process__wrapper__bg
+.process__wrapper__bg {
+    position: relative;
+    z-index: 1;
+    .process__bg__map {
+        position: absolute;
+        z-index: -1;
+        max-width: 1220px;
+        text-align: center;
+    }
+    .btn__section {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+        margin-bottom: -9px;
+        li {
+            &:last-child {
+                .ht_btn {
+                    color: $heding;
+                    background: $white;
+                    &::before {
+                        background: $theme-color;
+                    }
+                    &:hover {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}

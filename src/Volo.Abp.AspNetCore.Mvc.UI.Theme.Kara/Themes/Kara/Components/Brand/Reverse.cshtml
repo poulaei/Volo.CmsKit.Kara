@@ -1,0 +1,12 @@
+﻿@using Volo.Abp.Ui.Branding
+@inject IBrandingProvider BrandingProvider
+<div class="logo-area d-none">
+    <a class="front" href="~/">
+
+        @if (!BrandingProvider.LogoUrl.IsNullOrWhiteSpace())
+        {
+            <img src="@BrandingProvider.LogoReverseUrl" alt="@BrandingProvider.AppName">
+        }
+        **** @BrandingProvider.AppName ****
+    </a>
+</div>

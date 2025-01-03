@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace />
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Volo.CmsKit.Admin.Application.Contracts\Volo.CmsKit.Admin.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Volo.CmsKit.Public.Application.Contracts\Volo.CmsKit.Public.Application.Contracts.csproj" />
+  </ItemGroup>
+
+</Project>

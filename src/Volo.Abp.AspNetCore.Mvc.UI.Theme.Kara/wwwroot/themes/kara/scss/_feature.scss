@@ -1,0 +1,19 @@
+.feature__section{
+    .section__title__main{color: $white;}
+    .section__description{color: $white;}
+    .feature__01{
+        top: 0;
+        z-index: -1;
+    }
+    .ht_btn{
+        border-radius: 3px;
+        background: $green;
+        padding:18px 55px;
+        text-transform: capitalize;
+        font-size: 18px;
+        &::before{
+            background:$theme-color;
+        }
+
+    }
+}

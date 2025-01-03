@@ -1,0 +1,13 @@
+{
+  "modules": {
+    "Volo.CmsKit": {
+      "path": "Volo.CmsKit.abpmdl"
+    }
+  },
+  "id": "8a4a17a6-4a39-4112-b5e2-e8d6205daa3f",
+  "versions": {
+    "AbpFramework": "9.0.2",
+    "AbpCommercial": "9.0.2",
+    "LeptonX": "4.0.3"
+  }
+}

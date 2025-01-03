@@ -1,0 +1,48 @@
+﻿@page
+@using Volo.CmsKit.Admin.Web.Menus
+@using Volo.CmsKit.Admin.Web.Pages.CmsKit.GalleryImages
+@using Volo.CmsKit.Admin.Web.Pages
+
+@using Volo.CmsKit.Permissions;
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.Extensions.Localization;
+@inherits CmsKitAdminPageBase
+@model IndexModel
+@inject IAuthorizationService AuthorizationService
+
+@{
+    PageLayout.Content.Title = L["ImageGallery"].Value;
+    PageLayout.Content.BreadCrumb.Add(L["Menu:ImageGallery"].Value);
+    PageLayout.Content.MenuItemName = CmsKitAdminMenus.ImageGallery.ImageGalleryMenu;
+}
+@section scripts
+{
+    <abp-script-bundle >
+        <abp-script src="/client-proxies/cms-kit-common-proxy.js" />
+        <abp-script src="/client-proxies/cms-kit-admin-proxy.js" />
+       <abp-script src="/Pages/CmsKit/GalleryImages/Index.cshtml.js" />
+        <abp-script src="/Pages/CmsKit/GalleryImages/CreateModal.cshtml.js" />
+    </abp-script-bundle>
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Images"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await AuthorizationService.IsGrantedAsync(CmsKitAdminPermissions.GalleryImages.Create))
+                {
+                        <abp-button id="NewImageButton"
+                            text="@L["NewImage"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ImagesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

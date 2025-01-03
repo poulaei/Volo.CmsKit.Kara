@@ -1,0 +1,32 @@
+require('./kendo.core.js');
+require('./kendo.fx.js');
+require('./kendo.router.js');
+require('./kendo.view.js');
+require('./kendo.data.odata.js');
+require('./kendo.data.xml.js');
+require('./kendo.data.js');
+require('./kendo.data.signalr.js');
+require('./kendo.binder.js');
+require('./kendo.userevents.js');
+require('./kendo.draganddrop.js');
+require('./kendo.mobile.scroller.js');
+require('./kendo.popup.js');
+require('./kendo.tooltip.js');
+require('./kendo.drawing.js');
+require('./kendo.dataviz.core.js');
+require('./kendo.dataviz.themes.js');
+require('./kendo.dataviz.chart.js');
+require('./kendo.dataviz.sankey.js');
+require('./kendo.dataviz.gauge.js');
+require('./kendo.dataviz.barcode.js');
+require('./kendo.dataviz.qrcode.js');
+require('./kendo.dataviz.stock.js');
+require('./kendo.dataviz.sparkline.js');
+require('./kendo.dataviz.map.js');
+require('./kendo.dataviz.diagram.js');
+require('./kendo.dataviz.treemap.js');
+
+"bundle all";
+var kendo$1 = kendo;
+
+module.exports = kendo$1;

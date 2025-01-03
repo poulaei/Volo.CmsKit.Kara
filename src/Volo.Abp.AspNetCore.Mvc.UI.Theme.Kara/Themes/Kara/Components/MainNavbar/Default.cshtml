@@ -1,0 +1,45 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.Brand
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.Menu
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.Toolbar
+<nav class="navbar navbar-expand-md navbar-dark bg-dark shadow-sm flex-column flex-md-row mb-0" id="main-navbar" style="min-height: 4rem;">
+    <div class="container">
+        <div class="collapse navbar-collapse" id="main-navbar-collapse">
+            <ul class="navbar-nav">
+                @(await Component.InvokeAsync<MainNavbarToolbarViewComponent>())
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<header class="theme-main-menu theme-menu-one position-relative">
+    <div class="main-header-area pt-10 pb-10" data-aos="fade-up">
+        <div class="container-fluid">
+            <div class="row align-items-center">
+                <div class="col-xxl-2 col-xl-2 col-5">
+                    @(await Component.InvokeAsync<MainNavbarBrandViewComponent>())
+                </div>
+                <div class="col-xxl-9 col-xl-9 col-4 d-flex align-items-center justify-content-end">
+                    @(await Component.InvokeAsync<ReverseNavbarBrandViewComponent>())
+                    <div class="main-menu d-none d-xxl-block mr-40">
+                        <nav class="navbar" id="mobile-menu">
+                            <ul class="menu-list ps-0">
+                                @(await Component.InvokeAsync<MainNavbarMenuViewComponent>())
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-xxl-1 col-xl-1 col-3 align-items-center justify-content-end">
+                    <div class="right-nav d-flex align-items-center justify-content-end">
+                        <div class="icon d-none d-xxl-inline-block">
+                            <div class="search-icon" data-bs-toggle="offcanvas" data-bs-target="#offcanvasTop" aria-controls="offcanvasTop"><a href="#" class=""><i class="far fa-search"></i></a></div>
+                        </div>
+
+                        <div class="cart__menu d-none d-xxl-inline-block ml-20"><a class="shopping-cart" href="#" data-bs-toggle="offcanvas" data-bs-target="offcanvasRight"><img src="assets/img/icon/cart__icon.svg" alt="" class=""><span class="badge"></span></a></div>
+                        <div class="hamburger-menu d-inline-block d-xxl-none"><a class="round-menu" href="javascript:void(0);"><i class="far fa-bars"></i></a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-border mt-15 mt-md-15 mt-xs-15"></div>
+    </div>
+</header>

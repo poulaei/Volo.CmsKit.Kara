@@ -1,0 +1,327 @@
+.banner__main__title{
+    font-size:85px;
+    font-weight: 700;
+    line-height:105px;
+    text-transform: uppercase;
+    position: relative;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:83px;
+        line-height:98px;
+    }
+    @media #{$max-lg} {
+        font-size: 62px;
+        line-height: 70px;
+    }
+    @media #{$max-xs-s} {
+        font-size: 42px;
+        line-height: 50px;
+    }
+}
+.banner__sub__title{
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 80px;
+    @include transition(0.3s);
+    @media #{$max-xs-s} {
+        line-height:40px;
+
+    }
+}
+.banner__description{
+    font-family:$body-fonts;
+    font-weight:400;
+    font-size: 20px;
+    line-height:normal;
+    @include transition(0.3s);
+    @media #{$max-lg} {
+        font-size:18px;
+        line-height: 32px;
+    }
+    @media #{$max-xs-s} {
+        font-size:16px;
+        line-height:30px;
+    }
+}
+// =====================section__title__main
+.section__title__main{
+    font-size: 65px;
+    font-weight: 500;
+    text-transform: capitalize;
+    line-height:normal;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:55px;
+    }
+    @media #{$max-lg} {
+        font-size:45px;
+    }
+    @media #{$max-xs} {
+        font-size:35px
+
+    }
+    @media #{$max-xs-s} {
+        font-size:28px
+
+    }
+
+}
+.section__sub__title{
+    font-family:$header-fonts;
+    font-size: 16px;
+    font-weight:400;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    @include transition(0.3s);
+    @media #{$max-xs-s} {
+        line-height:normal;
+
+    }
+
+}
+.section__description{
+    font-family:$body-fonts;
+    font-weight:400;
+    font-size: 18px;
+    text-transform: capitalize;
+    line-height:normal;
+    @include transition(0.3s);
+    @media #{$max-xs-s} {
+        font-size:18px;
+        line-height: 32px;
+    }
+}
+.section__button{
+    a{margin-right:30px;}
+    .ht_btn{
+        padding: 20px 41px;
+        font-size: 20px;
+        font-weight: 500;
+        text-transform: capitalize;
+        @include transition(0.3s);
+        @media #{$max-lg} {
+            font-size:16px;
+        }
+    }
+}
+.section__sub__title__one{
+    font-size: 30px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:28px;
+    }
+    @media #{$max-lg} {
+        font-size:24px;
+    }
+}
+.section__sub__title__two{
+    font-size: 28px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:24px;
+    }
+    @media #{$max-lg} {
+        font-size:22px;
+    }
+}
+.section__sub__title__three{
+    font-size: 24px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$max-lg} {
+        font-size:22px;
+    }
+}
+.section__sub__title__four{
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$max-lg} {
+        font-size:20px;
+    }
+}
+.section__sub__title__five{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+}
+// span for team person title
+.person__one__title{
+    font-size: 22px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+}
+.person__one__title{
+    font-size: 20px;
+    font-weight: 500;
+    text-transform: capitalize;
+    @include transition(0.3s);
+}
+// section__description__two
+.section__description__two{
+    font-size: 16px;
+    line-height: 26px;
+    text-transform: capitalize;
+    font-weight: normal;
+    @include transition(0.3s);
+}
+
+// ==========home version three titile here
+.three__banner__main__title{
+    font-family:$rosario;
+    font-size: 150px;
+    font-weight: 700;
+    line-height: 170px; /* 113.333% */
+    text-transform: capitalize;
+    position: relative;
+    @include transition(0.3s);
+    @media #{$max-xl} {
+        font-size: 95px;
+        line-height: 140px;
+
+    }
+    @media #{$max-lg} {
+        font-size: 56px;
+        line-height: 72px;
+
+    }
+    @media #{$max-xs-s} {
+        font-size: 42px;
+        line-height: 50px;
+    }
+}
+.three__banner__description{
+    font-family:$header-fonts;
+    font-weight:400;
+    font-size: 24px;
+    line-height: 44px;
+    @include transition(0.3s);
+    @media #{$max-lg} {
+        font-size:18px;
+        line-height: 36px;
+    }
+    @media #{$max-xs-s} {
+        font-size:16px;
+        line-height:30px;
+    }
+}
+.three__section__title__main{
+    font-family:$rosario;
+    font-size: 70px;
+    font-weight: 600;
+    line-height: 85px;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:55px;
+        line-height:normal;
+    }
+    @media #{$max-lg} {
+        font-size:45px;
+    }
+    @media #{$max-xs} {
+        font-size:35px;
+        line-height:normal;
+
+    }
+    @media #{$max-xs-s} {
+        font-size:28px;
+        line-height:normal;
+
+    }
+
+}
+.three__section__sub__title{
+    font-family:$header-fonts;
+    font-size: 18px;
+    font-weight:400;
+    line-height: normal;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    @include transition(0.3s);
+    @media #{$max-xs-s} {
+        line-height:normal;
+
+    }
+
+}
+.three__section__sub__title__one{
+    font-family:$rosario;
+    font-size: 30px;
+    font-weight: 600;
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:28px;
+    }
+    @media #{$max-lg} {
+        font-size:24px;
+    }
+}
+.three__section__description{
+    font-family:$header-fonts;
+    font-weight:400;
+    font-size: 18px;
+    line-height: 30px; /* 166.667% */
+    text-transform: capitalize;
+    @include transition(0.3s);
+    @media #{$max-lg} {
+        font-size:18px;
+        line-height: 30px;
+    }
+    @media #{$max-xs-s} {
+        font-size:16px;
+        line-height: 30px;
+    }
+}
+.three__ht__btn{
+    font-family:$rosario;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+}
+
+// blog details heading
+.blog__heading__three{
+    font-size: 60px;
+    font-weight: 500;
+    line-height: 75px;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:55px;
+        line-height:normal;
+    }
+    @media #{$max-lg} {
+        font-size:45px;
+    }
+    @media #{$max-xs-s} {
+        font-size:35px;
+        line-height:normal;
+
+    }
+}
+.blog__description{
+    font-size: 18px;
+    line-height: 34px;
+    color: #3D3D3D;
+}
+.blog__qute{
+    font-size: 36px;
+    font-weight: normal;
+    font-style: italic;
+    @include transition(0.3s);
+    @media #{$laptop} {
+        font-size:28px;
+    }
+    @media #{$max-lg} {
+        font-size:22px;
+    }
+}

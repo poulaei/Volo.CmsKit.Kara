@@ -1,0 +1,220 @@
+﻿@using Volo.Abp.AspNetCore.Mvc.UI.Components.LayoutHook
+@using Volo.Abp.AspNetCore.Mvc.UI.Layout
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Bundling
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.ContentTitle
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.MainNavbar
+@using Volo.Abp.AspNetCore.Mvc.UI.Theme.Kara.Themes.Kara.Components.PageAlerts
+@using Volo.Abp.AspNetCore.Mvc.UI.Theming
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetScripts
+@using Volo.Abp.AspNetCore.Mvc.UI.Widgets.Components.WidgetStyles
+@using Volo.Abp.Localization
+@using Volo.Abp.Ui.Branding
+@using Volo.Abp.Ui.LayoutHooks
+@inject IBrandingProvider BrandingProvider
+@inject IPageLayout PageLayout
+@{
+    Layout = null;
+    //var containerClass = ViewBag.FluidLayout == true ? "container-fluid" : "container"; //TODO: Better and type-safe options
+    var containerClass = ViewBag.FluidLayout == true ? "main-wrapper" : "main-wrapper";
+
+    var pageTitle = ViewBag.Title == null ? BrandingProvider.AppName : ViewBag.Title; //TODO: Discard to get from Title
+
+    if (PageLayout.Content.Title != null)
+    {
+        if (!string.IsNullOrWhiteSpace(pageTitle))
+        {
+            pageTitle = " | " + pageTitle;
+        }
+
+        pageTitle = PageLayout.Content.Title + pageTitle;
+    }
+
+    var rtl = CultureHelper.IsRtl ? "rtl" : string.Empty;
+}
+
+<!DOCTYPE html>
+
+<html lang="@CultureInfo.CurrentCulture.Name" dir="@rtl" class="no-js">
+<head>
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.First, StandardLayouts.Public)
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>@pageTitle</title>
+    <meta property="og:site_name" content="KARA">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KARA - Architecture & Business HTML5 Template">
+    <meta name="og:image" content="images/assets/ogg.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#FF6600">
+    <meta name="msapplication-navbutton-color" content="#00040B">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#00040B">
+    <abp-style-bundle name="@KaraThemeBundles.Styles.Global" />
+
+    @await Component.InvokeAsync(typeof(WidgetStylesViewComponent))
+
+    @await RenderSectionAsync("styles", false)
+
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Head.Last, StandardLayouts.Public)
+</head>
+<body class="main-page-wrapper  abp-public-layout @rtl">
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.First, StandardLayouts.Public)
+    <div class="main-page-wrapper">
+        <!-- PAGE LOADING    ================================================== -->
+        <div id="preloader">
+            <div class="preloader">
+                <span></span><span></span>
+            </div>
+        </div>
+        <div class="offcanvas offcanvas-top theme-bg" tabindex="-1" id="offcanvasTop">
+            <div class="offcanvas-header"><a data-bs-dismiss="offcanvas" aria-label="Close"><i class="fas fa-times search-close" id="search-close"></i></a></div>
+            <div class="offcanvas-body"><div class="search-wrap"><form method="get"><input type="search" class="main-search-input" placeholder="کلمه کلیدی خود را جستجو کنید..."></form></div></div>
+        </div>
+        <aside class="slide-bar">
+            <div class="close-mobile-menu"><a href="javascript:void(0);"><i class="fas fa-times"></i></a></div>
+            <div class="cart-menu-right cart-style-1 white-bg">
+                <div class="close-icon float-right"><a href="javascript:void(0);"><i class="fal fa-times"></i></a></div>
+                <div class="dropdown-cart-products">
+                    <div class="product">
+                        <div class="product__cart-details">
+                            <h5 class="product-title"><a href="product.html">با استانداردهای زندگی در سطح جهانی.</a></h5>
+                            <span class="cart-product-info"><span class="cart-product-qty">1 مربع</span>x 84.00 دلار</span>
+                        </div>
+                        <figure class="product__image-container"><a href="product.html" class="product-img"><img src="assets/img/feature/product__01.png" alt="product"></a></figure><a href="#" class="remove-btn" title="Product remove"><i class="fal fa-times"></i></a>
+                    </div>
+                    <div class="product">
+                        <div class="product__cart-details">
+                            <h5 class="product-title"><a href="product.html">آپارتمان 3 خوابه مبله با نمای دریاچه</a></h5>
+                            <span class="cart-product-info"><span class="cart-product-qty">1 مربع</span>x 84.00 دلار</span>
+                        </div>
+                        <figure class="product__image-container"><a href="product.html" class="product-img"><img src="assets/img/feature/product__02.png" alt="product"></a></figure><a href="#" class="remove-btn" title="Product remove"><i class="fal fa-times"></i></a>
+                    </div>
+                    <div class="product">
+                        <div class="product__cart-details">
+                            <h5 class="product-title"><a href="product.html">آپارتمان 3 خوابه مبله با نمای دریاچه</a></h5>
+                            <span class="cart-product-info"><span class="cart-product-qty">1 مربع</span>x 84.00 دلار</span>
+                        </div>
+                        <figure class="product__image-container"><a href="product.html" class="product-img"><img src="assets/img/feature/product__03.png" alt="product"></a></figure><a href="#" class="remove-btn" title="Product remove"><i class="fal fa-times"></i></a>
+                    </div>
+                </div>
+                <div class="cart-total mb-15">
+                    <span>جمع</span><span class="cart-total-price">$160.00</span>
+                </div>
+                <div class="cart-action">
+                    <a href="project-details.html" class="btn btn-primary">مشاهده سبد خرید</a><a href="project-details.html" class="btn btn-outline-primary-2"><span>وارسی</span><i class="fal fa-long-arrow-right"></i></a>
+                </div>
+            </div>
+            <div class="offset-sidebar">
+                <div class="offset-widget offset-logo mb-30"><a href="index.html"><img src="assets/img/logo/header-logo-02.png" alt="logo"></a></div>
+                <div class="mobile-menu"></div>
+                <div class="offset-widget mb-40">
+                    <div class="info-widget">
+                        <h4 class="offset-title mb-20">درباره ما</h4>
+                        <p class="mb-30">اما من باید برای شما توضیح دهم که چگونه این ایده اشتباه تقبیح لذت و ستایش درد به وجود آمد و به شما گزارش کاملی از سیستم ارائه می دهد و آموزه های واقعی کاوش بزرگ را شرح می دهد.</p>
+                    </div>
+                </div>
+                <div class="offset-widget mb-30 pr-10">
+                    <div class="info-widget info-widget2">
+                        <h4 class="offset-title mb-20">اطلاعات تماس</h4>
+                        <p><i class="fal fa-address-book"></i>23/A، شهر میراندا لیکائولی پریکانو، دوپ</p>
+                        <p><i class="fal fa-phone"></i>9865 7876 0989 + 9</p>
+                        <p><i class="fal fa-envelope-open"></i>info@example.com</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="body-overlay"></div>
+
+        @(await Component.InvokeAsync<MainNavbarViewComponent>())
+
+        <div class="@containerClass">
+
+            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.First, StandardLayouts.Public)
+            @RenderBody()
+            @await Component.InvokeLayoutHookAsync(LayoutHooks.PageContent.Last, StandardLayouts.Public)
+        </div>
+        <footer class="home__one__footer footer-area position-relative pt-75">
+            <div class="footer__bg__one" data-aos="fade-up">
+                <div class="footer__wrapper__one position-relative">
+                    <div class="container">
+                        <div class="row pb-35">
+                            <div class="col-xl-4 col-lg-4 col-md-6">
+                                <div class="footer__widget__one mb-30 pr-100 pr-lg-0">
+                                    <a href="index.html" class="footer-logo d-inline-block mb-30"><img src="assets/img/logo/header-logo-02.png" alt="footer-logo"></a><p class="mb-30">کارگران ساختمانی زیر آفتاب سوزان زحمت کشیدند و در ساختمان اداری جدید پیشرفت کردند.</p>
+                                    <div class="social_media mt-35">
+                                        <a href="#"><img src="assets/img/social/facebook__01.png" alt="" class=""></a><a href="#"><img src="assets/img/icon/linkedin__01.svg" alt="" class=""></a><a href="#"><img src="assets/img/icon/twitter__01.svg" alt="" class=""></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xl-2 col-lg-2 col-md-6">
+                                <div class="footer__widget pt-40">
+                                    <h4 class="widget__title mb-30">پیوندها</h4>
+                                    <ul>
+                                        <li><a href="about.html">صفحه اصلی</a></li>
+                                        <li><a href="blog.html">خدمات</a></li>
+                                        <li><a href="contact.html">پروژه ها</a></li>
+                                        <li><a href="contact.html">گواهینامه</a></li>
+                                        <li><a href="contact.html">وبلاگ ها</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 ms-auto">
+                                <div class="footer__widget pt-40 ">
+                                    <h4 class="widget__title mb-30">خدمات ما</h4>
+                                    <ul>
+                                        <li><a href="about.html">ساخت و ساز ساختمان</a></li>
+                                        <li><a href="blog.html">برنامه ریزی معماری</a></li>
+                                        <li><a href="contact.html">بازسازی عمومی</a></li>
+                                        <li><a href="contact.html">تعمیر آسیب</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-xl-3 col-lg-3 col-md-6 ms-auto">
+                                <div class="footer__widget footer__contact pt-40">
+                                    <h4 class="widget__title mb-30">محصولات</h4>
+                                    <ul>
+                                        <li><a href="about.html">اجتماعی</a></li>
+                                        <li><a href="blog.html">چت زنده</a></li>
+                                        <li><a href="contact.html">سلف سرویس ها</a></li>
+                                        <li><a href="contact.html">سیار</a></li>
+                                        <li><a href="contact.html">سیاست آشپزی</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="devider__line"></div>
+                        <div class="copyright__area pt-35 pb-30">
+                            <div class="row">
+                                <div class="col-xl-5"><div class="text-start"><div class="copyright__text pb-30"><p><a class="fw-bold" href="https://themeforest.net/user/creativegigs/portfolio">بازی های خلاقانه</a>© 2024, All Rights Reserved</p></div></div></div>
+                                <div class="col-xl-6 ms-auto">
+                                    <div class="">
+                                        <ul class="text-start text-xl-end">
+                                            <li><a href="#">سیاست حفظ حریم خصوصی</a></li>
+                                            <li><a href="#">با ما تماس بگیرید.</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <img src="assets/img/bg/home__one__section__one.svg" alt="" class="shapes w-100 section__one__bg"><img src="assets/img/shape/star__shape__02.png" alt="" class="shapes star__shape__02">
+        </footer>
+    </div>
+    <abp-script-bundle name="@KaraThemeBundles.Scripts.Global" />
+
+    <script src="~/Abp/ApplicationLocalizationScript?cultureName=@CultureInfo.CurrentUICulture.Name"></script>
+    <script src="~/Abp/ApplicationConfigurationScript"></script>
+    <script src="~/Abp/ServiceProxyScript"></script>
+
+    @await Component.InvokeAsync(typeof(WidgetScriptsViewComponent))
+
+    @await RenderSectionAsync("scripts", false)
+
+    @await Component.InvokeLayoutHookAsync(LayoutHooks.Body.Last, StandardLayouts.Public)
+</body>
+</html>

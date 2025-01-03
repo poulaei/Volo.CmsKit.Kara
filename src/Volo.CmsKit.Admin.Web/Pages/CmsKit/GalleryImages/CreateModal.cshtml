@@ -1,0 +1,23 @@
+﻿@page
+@using Volo.CmsKit.Admin.Web.Pages
+@using Volo.CmsKit.Admin.Web.Pages.CmsKit.GalleryImages
+@using Volo.CmsKit.Localization;
+@using Microsoft.Extensions.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Volo.CmsKit.Admin.Web.Pages.CmsKit.GalleryImages.CreateModalModel
+@inherits CmsKitAdminPageBase
+@{
+    Layout = null;
+}
+<form asp-page="/CmsKit/GalleryImages/CreateModal">
+    <abp-modal>
+        <abp-modal-header title="@L["NewImage"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-input asp-for="ViewModel.Description" />
+            <img class="" loading="lazy" id="img-upload" alt="" />
+            <input type="file" id="ImageFile" class="form-control" required />
+            <abp-input asp-for="ViewModel.CoverImageMediaId" type="hidden" required />
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

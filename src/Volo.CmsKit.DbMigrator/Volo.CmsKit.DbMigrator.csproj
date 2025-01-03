@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net9.0</TargetFramework>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.0">
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+          <PrivateAssets>all</PrivateAssets>
+        </PackageReference>
+        <PackageReference Include="Volo.Abp.Autofac" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+      <PackageReference Include="Serilog.Extensions.Hosting" Version="8.0.0" />
+      <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+      <PackageReference Include="Serilog.Sinks.Async" Version="1.5.0" />
+      <PackageReference Include="Serilog.Sinks.Console" Version="5.0.0" />
+      <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
+      <PackageReference Include="Volo.Abp.BackgroundJobs" Version="9.0.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="appsettings.json">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="appsettings.secrets.json" Condition="Exists('appsettings.secrets.json')">
+            <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Volo.CmsKit.Application.Contracts\Volo.CmsKit.Application.Contracts.csproj" />
+      <ProjectReference Include="..\Volo.CmsKit.EntityFrameworkCore.DbMigrations\Volo.CmsKit.EntityFrameworkCore.DbMigrations.csproj" />
+    </ItemGroup>
+
+</Project>

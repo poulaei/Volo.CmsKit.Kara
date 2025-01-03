@@ -1,0 +1,190 @@
+// about  all section  style are here
+.about__section{
+    .section__content{
+        position: relative;
+    }
+    .section__title__main{
+        &::after{
+            position: absolute;
+            content: url('../img/shape/line__shape__02.svg');
+            top: 44%;
+            left: 1.5%;
+            @media #{$max-xl} {
+                display: none;
+            }
+        }
+    }
+    .accordion{
+        .item{
+            padding: 28px;
+            border: 1px solid rgba(0, 0, 0, 0.5);
+        }
+        .item__number{
+            font-size: 18px;
+            line-height: 30px;
+            margin-right: 10px;
+        }
+        .accordion-body{
+            padding:20px 0 0 0;
+        }
+    }
+    .section__one__bg{
+        top:-20px;
+        left: 0;
+        z-index: -1;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+    .star__shape__02{
+        top: 8%;
+        right: 8%;
+        @include transition(0.3s);
+        animation:scale-up-one 3s ease-in-out 0s infinite alternate-reverse both;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+}
+.home__two__section__two{
+    .section__sub__title{color: $theme-color;}
+    .section__title__main{
+        &::after{
+            position: absolute;
+            content: url('../img/shape/line__shape__03.svg');
+            top: 12%;
+            left: -9px;
+            z-index: -1;
+            @media #{$max-xl} {
+                display: none;
+            }
+        }
+    }
+    .home__two__about__02{
+        left: 36%;
+        bottom: -36%;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+    .home__two__about__03{
+        left: -18%;
+        bottom: -44%;
+        @media #{$max-xl} {
+           top:20%;
+           left: 0;
+        }
+        
+    }
+    .home__two__about__04{
+        left: 33%;
+        bottom: -40%;
+        z-index: -1;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+    .star__shape__02{
+        top: 8%;
+        left:8%;
+        @include transition(0.3s);
+        animation:scale-up-one 3s ease-in-out 0s infinite alternate-reverse both;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+}
+.home__three__section__three{
+    .three__section__sub__title{
+        color: $theme-color;
+        &::after{
+            position: absolute;
+            content: '';
+            width: 25px;
+            height: 1px;
+            background: $theme-color;
+            bottom: 10px;
+            right: -34px;
+        }
+    }
+    .three__section__title__main{
+        font-family: $rosario;
+        text-transform: capitalize;
+        font-weight: 600;
+        color: $black;
+        &::after{
+            display: none;
+        }
+    }
+    .home__three__about__06{
+        left: -20px;
+        top: -20px;
+        z-index: -1;
+    }
+    .home__three__about__07{
+        left: -72px;
+        top: -70px;
+        @media #{$max-xl} {
+            display: none;
+        }
+    }
+    .chart {
+            span{
+                font-size: 50px;
+                font-weight: 500;
+                position: absolute;
+                top: -67px;
+                left: 30px;
+                display: inline-block;
+            }
+        }
+        .chart-title{
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 36px;
+            text-transform: capitalize;
+        }
+        .ht_btn{
+			background: $black;
+			color: $white;
+            border-radius: 10px;
+			&::before{
+				background: $theme-color;
+			}
+		}
+}
+.about__banner{
+    background: url(../img/hero/about__banner__01.png) no-repeat;
+    background-color: rgba($color: #000000, $alpha: 0.9);
+    background-size: cover;
+    background-position: center center;
+    top: -20px;
+    .theme__content{
+        width: 80%;
+    }
+    .banner__main__title{
+        font-size: 72px;
+        text-transform: capitalize;
+        color: $white;
+        @media #{$max-xl} {
+            font-size:65px;
+        }
+        @media #{$max-xl} {
+            font-size:55px;
+        }
+        @media #{$max-xl} {
+            font-size:45px;
+        }
+    }
+    p{
+        color: $white;
+        font-size: 24px;
+        text-transform: capitalize;
+        a{
+            @include transition(0.3s);
+            &:hover{
+                color: $theme-color;
+            }
+        }
+    }
+}

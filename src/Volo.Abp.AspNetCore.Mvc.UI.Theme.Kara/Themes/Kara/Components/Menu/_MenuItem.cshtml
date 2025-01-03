@@ -1,0 +1,60 @@
+﻿@using Volo.Abp.UI.Navigation
+@model ApplicationMenuItem
+@{
+    var elementId = string.IsNullOrEmpty(Model.ElementId) ? string.Empty : $"id=\"{Model.ElementId}\"";
+    var cssClass = string.IsNullOrEmpty(Model.CssClass) ? string.Empty : Model.CssClass;
+    var disabled = Model.IsDisabled ? "disabled" : string.Empty;
+    var url = string.IsNullOrEmpty(Model.Url) ? "#" : Url.IsLocalUrl(Model.Url) ? Url.Content(Model.Url.EnsureStartsWith('~')) : Model.Url;
+    var customComponentType = Model.GetComponentTypeOrDefault();
+
+}
+@if (Model.IsLeaf)
+{
+    if (customComponentType != null && typeof(ViewComponent).IsAssignableFrom(customComponentType))
+    {
+        @(await Component.InvokeAsync(customComponentType))
+    }
+    else if (Model.Url != null)
+    {
+        <li>
+            <a href="@url" target="@Model.Target" @Html.Raw(elementId)>
+                @if (Model.Icon != null)
+                {
+                    if (Model.Icon.StartsWith("fa"))
+                    {
+                        <i class="@Model.Icon"></i>
+                    }
+                }
+                @Model.DisplayName
+            </a>
+        </li>
+    }
+}
+else
+{
+    <ul class="sub-menu">
+        @if (customComponentType != null && typeof(ViewComponent).IsAssignableFrom(customComponentType))
+        {
+            @(await Component.InvokeAsync(customComponentType))
+        }
+        else
+        {
+            <li>
+                <a href="#">
+                    <span class="lp-icon">
+                        <i class="@(Model.Icon ?? "")"></i>
+                    </span>
+                    <span class="lp-text">
+                        @Model.DisplayName
+                    </span>
+                </a>
+
+                @foreach (var childMenuItem in Model.Items)
+                {
+                    @await Html.PartialAsync("~/Themes/Kara/Components/Menu/_MenuItem.cshtml", childMenuItem)
+                }
+
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,28 @@
+﻿@page
+@using Localization.Resources.AbpUi
+@using Microsoft.Extensions.Localization
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.TuiEditor
+@using Volo.Abp.AspNetCore.Mvc.UI.Packages.Uppy
+@using Volo.Abp.GlobalFeatures
+@using Volo.Abp.Users
+@using Volo.CmsKit.GlobalFeatures
+@using Volo.CmsKit.Pages
+@* @using Volo.CmsKit.Public.Web.Pages.CmsKit.Shared.Components.Commenting
+@using Volo.CmsKit.Public.Web.Pages.CmsKit.Shared.Components.Rating
+@using Volo.CmsKit.Public.Web.Pages.CmsKit.Shared.Components.ReactionSelection
+@using Volo.CmsKit.Public.Web.Pages.CmsKit.Shared.Components.Tags *@
+@model IndexModel
+@inject IStringLocalizer<AbpUiResource> Localizer
+@inject ICurrentUser CurrentUser
+
+@section styles{
+    <abp-style type="typeof(TuiEditorStyleContributor)"/>
+}
+
+@section scripts{
+    <abp-script type="typeof(UppyScriptContributor)"/>
+    <abp-script type="typeof(TuiEditorScriptContributor)"/>
+    <abp-script src="/Pages/index.cshtml.js"/>
+}
+
+<h1 class="text-center">CMS Kit DEMO</h1>

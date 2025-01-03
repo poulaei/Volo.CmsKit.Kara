@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+
+
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace />
+	</PropertyGroup>
+
+
+
+
+	<ItemGroup>
+	  <Compile Remove="Volo\CmsKit\HierarchyNode.cs" />
+	</ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Volo.CmsKit.Domain.Shared\Volo.CmsKit.Domain.Shared.csproj" />
+        <PackageReference Include="Volo.Abp.Ddd.Application.Contracts" Version="9.0.2" />
+        <PackageReference Include="Volo.Abp.Authorization" Version="9.0.2" />
+        <PackageReference Include="Volo.Abp.Caching" Version="9.0.2" />
+    </ItemGroup>
+
+</Project>

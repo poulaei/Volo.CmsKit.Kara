@@ -1,0 +1,61 @@
+﻿@using Volo.Abp.UI.Navigation
+@model ApplicationMenu
+@foreach (var menuItem in Model.Items)
+{
+    var elementId = string.IsNullOrEmpty(menuItem.ElementId) ? string.Empty : $"id=\"{menuItem.ElementId}\"";
+    var cssClass = string.IsNullOrEmpty(menuItem.CssClass) ? string.Empty : menuItem.CssClass;
+    var disabled = menuItem.IsDisabled ? "disabled" : string.Empty;
+    var url = string.IsNullOrEmpty(menuItem.Url) ? "#" : Url.IsLocalUrl(menuItem.Url) ? Url.Content(menuItem.Url.EnsureStartsWith('~')) : menuItem.Url;
+    var customComponentType = menuItem.GetComponentTypeOrDefault();
+    
+    if (menuItem.IsLeaf)
+    {
+        if (customComponentType != null && typeof(ViewComponent).IsAssignableFrom(customComponentType))
+        {
+            @(await Component.InvokeAsync(customComponentType))
+        }
+        else if (menuItem.Url != null)
+        {
+            <li class="@disabled" @elementId>
+                <a  href="@url" target="@menuItem.Target">
+                    @if (menuItem.Icon != null)
+                    {
+                        if (menuItem.Icon.StartsWith("fa"))
+                        {
+                            <i class="@menuItem.Icon"></i>
+                        }
+                    }
+                    @menuItem.DisplayName
+                </a>
+            </li>
+        }
+    }
+    else
+    {
+        <li>
+          
+                @if (customComponentType != null && typeof(ViewComponent).IsAssignableFrom(customComponentType))
+                {
+                    @(await Component.InvokeAsync(customComponentType))
+                }
+                else
+                {
+                    <a href="#" id="Menu_@(menuItem.Name)" >
+                        @if (menuItem.Icon != null)
+                        {
+                            <i class="@menuItem.Icon"></i>
+                        }
+                        @menuItem.DisplayName
+                    </a>
+                   <ul class="sub-menu">
+                        @foreach (var childMenuItem in menuItem.Items)
+                        {
+                            @await Html.PartialAsync("~/Themes/Kara/Components/Menu/_MenuItem.cshtml", childMenuItem)
+                        }
+                </ul>
+                   
+                }
+            
+        </li>
+    }
+}

@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+ 
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace>Volo.CmsKit</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\host\Volo.CmsKit.Host.Shared\Volo.CmsKit.Host.Shared.csproj" />
+    <ProjectReference Include="..\Volo.CmsKit.EntityFrameworkCore\Volo.CmsKit.EntityFrameworkCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
+    <PackageReference Include="Volo.Abp.AuditLogging.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.BackgroundJobs.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.BlobStoring.Database.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.EntityFrameworkCore.SqlServer" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.SettingManagement.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.TenantManagement.EntityFrameworkCore" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
+</Project>
+

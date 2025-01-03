@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<LangVersion>latest</LangVersion>
+		<TargetFramework>net9.0</TargetFramework>
+		<RootNamespace />
+	</PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Volo.CmsKit.Common.Application.Contracts\Volo.CmsKit.Common.Application.Contracts.csproj" />
+    <PackageReference Include="Volo.Abp.EventBus" Version="9.0.2" />
+  </ItemGroup>
+
+</Project>

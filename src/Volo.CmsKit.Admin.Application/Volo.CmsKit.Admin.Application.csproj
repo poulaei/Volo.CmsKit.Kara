@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  
+  
+
+  <PropertyGroup><LangVersion>latest</LangVersion>
+    <TargetFramework>net9.0</TargetFramework>
+    <RootNamespace />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Volo.CmsKit.Admin.Application.Contracts\Volo.CmsKit.Admin.Application.Contracts.csproj" />
+    <ProjectReference Include="..\Volo.CmsKit.Common.Application\Volo.CmsKit.Common.Application.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Volo\CmsKit\Admin\Contents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Account.Application" Version="9.0.2" />
+    <PackageReference Include="Volo.Abp.Identity.Application" Version="9.0.2" />
+  </ItemGroup>
+
+</Project>

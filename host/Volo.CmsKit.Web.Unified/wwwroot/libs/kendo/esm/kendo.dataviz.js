@@ -1,0 +1,32 @@
+import './kendo.core.js';
+import './kendo.fx.js';
+import './kendo.router.js';
+import './kendo.view.js';
+import './kendo.data.odata.js';
+import './kendo.data.xml.js';
+import './kendo.data.js';
+import './kendo.data.signalr.js';
+import './kendo.binder.js';
+import './kendo.userevents.js';
+import './kendo.draganddrop.js';
+import './kendo.mobile.scroller.js';
+import './kendo.popup.js';
+import './kendo.tooltip.js';
+import './kendo.drawing.js';
+import './kendo.dataviz.core.js';
+import './kendo.dataviz.themes.js';
+import './kendo.dataviz.chart.js';
+import './kendo.dataviz.sankey.js';
+import './kendo.dataviz.gauge.js';
+import './kendo.dataviz.barcode.js';
+import './kendo.dataviz.qrcode.js';
+import './kendo.dataviz.stock.js';
+import './kendo.dataviz.sparkline.js';
+import './kendo.dataviz.map.js';
+import './kendo.dataviz.diagram.js';
+import './kendo.dataviz.treemap.js';
+
+"bundle all";
+var kendo$1 = kendo;
+
+export { kendo$1 as default };
