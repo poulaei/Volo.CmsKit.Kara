@@ -4,6 +4,7 @@ using Volo.Abp.Caching;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Entities.Events;
 using Volo.Abp.EventBus;
+using Volo.CmsKit.Contents;
 
 namespace Volo.CmsKit.ContentBoxes;
 
@@ -13,9 +14,9 @@ public class ContentBoxChangedHandler :
   ILocalEventHandler<EntityCreatedEventData<ContentBox>>,
   ITransientDependency
 {
-    protected IDistributedCache<List<ContentBoxDto>> DistributedCache { get; }
+    protected IDistributedCache<List<ContentBoxCommonDto>> DistributedCache { get; }
 
-    public ContentBoxChangedHandler(IDistributedCache<List<ContentBoxDto>> distributedCache)
+    public ContentBoxChangedHandler(IDistributedCache<List<ContentBoxCommonDto>> distributedCache)
     {
         DistributedCache = distributedCache;
     }

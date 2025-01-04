@@ -25,35 +25,35 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
 {
     protected IContentBoxRepository ContentBoxRepository { get; }
     protected IDistributedCache<ContentBoxCacheItem> ContentBoxCache { get; }
-    protected IDistributedCache<List<ContentBoxDto>> DistributedCache { get; }
+    protected IDistributedCache<List<ContentBoxCommonDto>> DistributedCache { get; }
     public ContentBoxPublicAppService(
         IContentBoxRepository contentBoxRepository,
         IDistributedCache<ContentBoxCacheItem> boxCache,
-        IDistributedCache<List<ContentBoxDto>> distributedCache)
+        IDistributedCache<List<ContentBoxCommonDto>> distributedCache)
     {
         ContentBoxRepository = contentBoxRepository;
         ContentBoxCache = boxCache;
         DistributedCache = distributedCache;
     }
 
-    public  async Task<ContentBoxDto> GetAsync(Guid id)
+    public  async Task<ContentBoxCommonDto> GetAsync(Guid id)
     {
         var cachedContentBox = await FindAndCacheByIdAsync(id);
         if (cachedContentBox == null)
         {
             return null;
         }
-        return ObjectMapper.Map<ContentBoxCacheItem, ContentBoxDto>(cachedContentBox);
+        return ObjectMapper.Map<ContentBoxCacheItem, ContentBoxCommonDto>(cachedContentBox);
     }
 
-    public async Task<ListResultDto<ContentBoxDto>> GetByParentAsync(Guid? parentId)
+    public async Task<ListResultDto<ContentBoxCommonDto>> GetByParentAsync(Guid? parentId)
     {
         var items = await ContentBoxRepository.GetByParentAsync(parentId, includeDetails: true);
 
-        return new ListResultDto<ContentBoxDto>(ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items));
+        return new ListResultDto<ContentBoxCommonDto>(ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items));
     }
    
-    public async Task<ContentBoxDto> GetBySectionAsync(string section)
+    public async Task<ContentBoxCommonDto> GetBySectionAsync(string section)
     {
         var cachedContentBox = await FindAndCacheBySectionAsync(section);
         //var cachedContentBox = await ContentBoxRepository.GetBySectionAsync(section);
@@ -63,7 +63,7 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
             return null;
         }
 
-        return ObjectMapper.Map<ContentBoxCacheItem, ContentBoxDto>(cachedContentBox);
+        return ObjectMapper.Map<ContentBoxCacheItem, ContentBoxCommonDto>(cachedContentBox);
        // return ObjectMapper.Map<ContentBox, ContentBoxDto>(cachedContentBox);
     }
 
@@ -100,7 +100,7 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
         return boxCacheItem;
     }
 
-     public async Task<PagedResultDto<ContentBoxDto>> GetListAsync()
+     public async Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync()
     {
 
         var cachedItems = await DistributedCache.GetOrAddAsync(
@@ -114,15 +114,15 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
                    return new();
                }
 
-               return ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items);
+               return ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items);
            });
         var count = await ContentBoxRepository.GetCountAsync();
        
-        return new PagedResultDto<ContentBoxDto>(count, cachedItems);
+        return new PagedResultDto<ContentBoxCommonDto>(count, cachedItems);
 
     }
 
-    public async Task<PagedResultDto<ContentBoxDto>> GetListAsync(ContentBoxGetListInput input)
+    public async Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync(ContentBoxGetListInput input)
     {
 
         var count = await ContentBoxRepository.GetCountAsync(input.Filter);
@@ -133,11 +133,11 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
             input.Sorting
            // includeDetails: true
         );
-        return new PagedResultDto<ContentBoxDto>(count, ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items));
+        return new PagedResultDto<ContentBoxCommonDto>(count, ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items));
 
     }
 
-    public async Task<List<HierarchyNode<ContentBoxDto>>> GetHierarchyAsync()
+    public async Task<List<HierarchyNode<ContentBoxCommonDto>>> GetHierarchyAsync()
     {
         var cachedItem = await DistributedCache.GetOrAddAsync(ContentBoxApplicationConsts.ContentBoxCacheKey,
             async () =>
@@ -149,7 +149,7 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
                     return new();
                 }
 
-                return ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items);//.AsHierarchy(m => m.Id, m => m.PageId);
+                return ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items);//.AsHierarchy(m => m.Id, m => m.PageId);
             });
 
         //var menuItems = await MenuItemRepository.GetListAsync();
@@ -174,7 +174,7 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
                     return new();
                 }
 
-                return ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items);
+                return ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items);
             });
 
         var tree = LinqToObjectsExtensionMethods.FlatToTree(cachedItem, null);
@@ -199,7 +199,7 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
         //    });
 
         var items = await ContentBoxRepository.GetHierarchyAsync(id);
-        var cachedItem = ObjectMapper.Map<List<HierarchyNode<ContentBox>>, List<HierarchyNode<ContentBoxDto>>>(items);
+        var cachedItem = ObjectMapper.Map<List<HierarchyNode<ContentBox>>, List<HierarchyNode<ContentBoxCommonDto>>>(items);
         var tree = LinqToObjectsExtensionMethods.HierarchyToTree(cachedItem);
         return tree;
     }
@@ -207,14 +207,14 @@ public class ContentBoxPublicAppService : CmsKitPublicAppServiceBase, IContentBo
     public async Task<List<ContentBoxTree>> GetTreeBySectionAsync([NotNull] string section)
     {
         var items = await ContentBoxRepository.GetHierarchyBySectionAsync(section);
-        var cachedItem = ObjectMapper.Map<List<HierarchyNode<ContentBox>>, List<HierarchyNode<ContentBoxDto>>>(items);
+        var cachedItem = ObjectMapper.Map<List<HierarchyNode<ContentBox>>, List<HierarchyNode<ContentBoxCommonDto>>>(items);
         var tree = LinqToObjectsExtensionMethods.HierarchyToTree(cachedItem);
         return tree;
     }
     public async Task<List<ContentBoxTree>> GetTreeAsync_Bad(Guid id)
     {
         var items = await ContentBoxRepository.GetListAsync();
-        var cachedItem = ObjectMapper.Map<List<ContentBox>, List<ContentBoxDto>>(items);
+        var cachedItem = ObjectMapper.Map<List<ContentBox>, List<ContentBoxCommonDto>>(items);
         var tree = LinqToObjectsExtensionMethods.FlatToTree1(cachedItem, null);
         return tree.Where(t => t.Id == id).ToList();
     }

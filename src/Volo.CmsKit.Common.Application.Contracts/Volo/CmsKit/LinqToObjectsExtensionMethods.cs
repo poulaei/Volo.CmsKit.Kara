@@ -4,6 +4,7 @@ using System.Linq;
 using Volo.Abp.Data;
 using Volo.CmsKit.Boxes;
 using Volo.CmsKit.ContentBoxes;
+using Volo.CmsKit.Contents;
 using Volo.CmsKit.Menus;
 
 namespace Volo.CmsKit;
@@ -152,7 +153,7 @@ public static class LinqToObjectsExtensionMethods
     /// <param name="data"></param>
     /// <param name="parentId"></param>
     /// <returns></returns>
-    public static List<ContentBoxTree> FlatToTree(List<ContentBoxDto> data, Guid? parentId = null)
+    public static List<ContentBoxTree> FlatToTree(List<ContentBoxCommonDto> data, Guid? parentId = null)
     {
         List<ContentBoxTree> tree = new List<ContentBoxTree>();
         foreach (var item in data)
@@ -175,7 +176,7 @@ public static class LinqToObjectsExtensionMethods
                     Icon = item.Icon,
                     Description = item.Description,
                     MediaId = item.MediaId,
-                    ConcurrencyStamp = item.ConcurrencyStamp,
+                   // ConcurrencyStamp = item.ConcurrencyStamp,
                     Children = FlatToTree(data, item.Id),
                     ExtraProperties = item.ExtraProperties
                 };
@@ -185,7 +186,7 @@ public static class LinqToObjectsExtensionMethods
         return tree;
     }
 
-    public static List<ContentBoxTree> FlatToTree1(List<ContentBoxDto> data, Guid? parentId = null)
+    public static List<ContentBoxTree> FlatToTree1(List<ContentBoxCommonDto> data, Guid? parentId = null)
     {
         List<ContentBoxTree> tree = new List<ContentBoxTree>();
         foreach (var item in data)
@@ -209,7 +210,7 @@ public static class LinqToObjectsExtensionMethods
                     Icon = item.Icon,
                     Description = item.Description,
                     MediaId = item.MediaId,
-                    ConcurrencyStamp = item.ConcurrencyStamp,
+                    //ConcurrencyStamp = item.ConcurrencyStamp,
                     Children = FlatToTree1(data, item.Id),
                     ExtraProperties = item.ExtraProperties
                 };
@@ -219,7 +220,7 @@ public static class LinqToObjectsExtensionMethods
         return tree;
     }
 
-    public static List<ContentBoxTree> FlatToTree(List<ContentBoxDto> data)
+    public static List<ContentBoxTree> FlatToTree(List<ContentBoxCommonDto> data)
     {
         List<ContentBoxTree> tree = new List<ContentBoxTree>();
         var parentId= data[0].ParentId;
@@ -244,7 +245,7 @@ public static class LinqToObjectsExtensionMethods
                     Icon = item.Icon,
                     Description = item.Description,
                     MediaId = item.MediaId,
-                    ConcurrencyStamp = item.ConcurrencyStamp,
+                   // ConcurrencyStamp = item.ConcurrencyStamp,
                     Children = FlatToTree(data, item.Id),
                     ExtraProperties = item.ExtraProperties
                 };
@@ -254,7 +255,7 @@ public static class LinqToObjectsExtensionMethods
         return tree;
     }
 
-    public static List<ContentBoxTree> HierarchyToTree(List<HierarchyNode<ContentBoxDto>> data)
+    public static List<ContentBoxTree> HierarchyToTree(List<HierarchyNode<ContentBoxCommonDto>> data)
     {
         List<ContentBoxTree> tree = new List<ContentBoxTree>();
         foreach (var d in data)
@@ -276,7 +277,7 @@ public static class LinqToObjectsExtensionMethods
                     Icon = d.Item.Icon,
                     Description = d.Item.Description,
                     MediaId = d.Item.MediaId,
-                    ConcurrencyStamp = d.Item.ConcurrencyStamp,
+                   // ConcurrencyStamp = d.Item.ConcurrencyStamp,
                     Children = HierarchyToTree(d.SubItems.ToList()),
                     ExtraProperties = d.Item.ExtraProperties
                 };

@@ -12,12 +12,12 @@ namespace Volo.CmsKit.Public.ContentBoxes;
 
 public interface IContentBoxPublicAppService : IApplicationService
 {
-    Task<ContentBoxDto> GetAsync(Guid id);
-    Task<ListResultDto<ContentBoxDto>> GetByParentAsync(Guid? parentId);
-    Task<PagedResultDto<ContentBoxDto>> GetListAsync();
-    Task<PagedResultDto<ContentBoxDto>> GetListAsync(ContentBoxGetListInput input);
-    Task<ContentBoxDto> GetBySectionAsync([NotNull] string section);
-    Task<List<HierarchyNode<ContentBoxDto>>> GetHierarchyAsync();
+    Task<ContentBoxCommonDto> GetAsync(Guid id);
+    Task<ListResultDto<ContentBoxCommonDto>> GetByParentAsync(Guid? parentId);
+    Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync();
+    Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync(ContentBoxGetListInput input);
+    Task<ContentBoxCommonDto> GetBySectionAsync([NotNull] string section);
+    Task<List<HierarchyNode<ContentBoxCommonDto>>> GetHierarchyAsync();
     Task<List<ContentBoxTree>> GetTreeAsync();
     Task<List<ContentBoxTree>> GetTreeAsync(Guid id);
     Task<List<ContentBoxTree>> GetTreeBySectionAsync([NotNull]  string section);

@@ -63,13 +63,13 @@ public class PublicApplicationAutoMapperProfile : Profile
         /*----------------------------------------------------------------------*/
 
         //Added by Poolaei @1403/04/13 ---------------------------------
-        CreateMap<ContentBox, ContentBoxDto>().MapExtraProperties();
+        CreateMap<ContentBox, ContentBoxCommonDto>().MapExtraProperties();
 
         CreateMap<ContentBox, ContentBoxCacheItem>().MapExtraProperties();
-        CreateMap<ContentBoxCacheItem, ContentBoxDto>().MapExtraProperties();
+        CreateMap<ContentBoxCacheItem, ContentBoxCommonDto>().MapExtraProperties();
 
         //CreateMap(typeof(HierarchyNode<ContentBox>), typeof(HierarchyNode<ContentBoxDto>));
-        CreateMap<HierarchyNode<ContentBox>, HierarchyNode<ContentBoxDto>>();
+        CreateMap<HierarchyNode<ContentBox>, HierarchyNode<ContentBoxCommonDto>>();
 
         CreateMap<GalleryImage, GalleryImageCommonDto>().MapExtraProperties();
         CreateMap<GalleryImage, GalleryImageWithDetailsDto>()

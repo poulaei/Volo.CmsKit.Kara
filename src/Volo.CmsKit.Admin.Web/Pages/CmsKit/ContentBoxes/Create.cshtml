@@ -23,12 +23,12 @@
 
 @inherits CmsKitAdminPageBase
 
-@model Volo.CmsKit.Admin.Web.Pages.CmsKit.Pages.CreateModel
+@model Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes.CreateModel
 
 @{
-    PageLayout.Content.Title = L["Pages"].Value;
+    PageLayout.Content.Title = L["ContentBoxes"].Value;
     PageLayout.Content.BreadCrumb.Add(L["Menu:CMS"].Value);
-    PageLayout.Content.MenuItemName = CmsKitAdminMenus.Pages.PagesMenu;
+    PageLayout.Content.MenuItemName = CmsKitAdminMenus.ContentBoxes.ContentBoxMenu;
 }
 
 @section scripts {
@@ -41,7 +41,7 @@
     <abp-script src="/libs/codemirror/mode/javascript/javascript.js"/>
     <abp-script src="/client-proxies/cms-kit-common-proxy.js"/>
     <abp-script src="/client-proxies/cms-kit-admin-proxy.js"/>
-    <abp-script src="/Pages/CmsKit/Pages/create.js" />
+    <abp-script src="/Pages/CmsKit/ContentBoxes/create.js" />
     <abp-script src="/Pages/CmsKit/Contents/addWidgetModal.js" />
 </abp-script-bundle>
 }
@@ -50,23 +50,31 @@
 <abp-style-bundle>
     <abp-style type="typeof(TuiEditorStyleContributor)" />
     <abp-style type="typeof(CodemirrorStyleContributor)" />
-    <abp-style src="/Pages/CmsKit/Pages/create.css"/>
+        <abp-style src="/Pages/CmsKit/ContentBoxes/create.css" />
 </abp-style-bundle>
 }
 @* @Html.AntiForgeryToken() *@
 <abp-card>
     <abp-card-header title="@L["New"].Value"></abp-card-header>
     <abp-card-body>
-        <form asp-page="/CmsKit/Pages/Create" id="form-page-create">
+        <form asp-page="/CmsKit/ContentBoxes/Create" id="form-content-box-create">
             <abp-input asp-for="@Model.ViewModel.Title" />
 
-            <abp-input asp-for="ViewModel.Slug" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["PageSlugInformation"]" />
+            <abp-input asp-for="ViewModel.Section" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxSectionInformation"]" />
+            <abp-input asp-for="ViewModel.BoxType" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxBoxTypeInformation"]" />
+            <abp-input asp-for="ViewModel.BoxName" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxSlugInformation"]" />
+            <abp-input asp-for="ViewModel.ActionType" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxBoxNameInformation"]" />
+            <abp-input asp-for="ViewModel.Action" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxActionTypeInformation"]" />
+            <abp-input asp-for="ViewModel.ActionUrl" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxActionInformation"]" />
+            <abp-input asp-for="ViewModel.Summary" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxSummaryInformation"]" />
+            <abp-input asp-for="ViewModel.Status" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxStatusInformation"]" />
+            <abp-input asp-for="ViewModel.Icon" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxIconInformation"]" />
+            <abp-input asp-for="ViewModel.Description" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxDescriptionInformation"]" />
+            <abp-input asp-for="ViewModel.Order" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxOrderInformation"]" />
 
            @*  <abp-input asp-for="@Model.ViewModel.Content" /> *@
 
-            <abp-tabs tab-style="Tab">
-
-                <abp-tab title="@L["Content"]">
+          
                     <div class="content-editor cms-kit-editor"
                          id="ContentEditor"
                         @*  data-input-id="@Html.IdFor(x => x.ViewModel.Content)" *@
@@ -117,19 +125,8 @@
                         
                         )
                     </div>
-                </abp-tab>
-
-                <abp-tab title="@L["Script"]">
-                    <abp-input asp-for="ViewModel.Script" suppress-label="true" />
-                </abp-tab>
-
-                <abp-tab title="@L["Style"]">
-                    <abp-input asp-for="ViewModel.Style"  suppress-label="true"/>
-                </abp-tab>
-
-            </abp-tabs>
-           
-            @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<CreateModel.CreatePageViewModel>())
+                         
+            @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<CreateModel.CreateContentBoxViewModel>())
             {
                 if (!propertyInfo.Name.EndsWith("_Text"))
                 {
@@ -162,7 +159,7 @@
         </form>
     </abp-card-body>
     <abp-card-footer>
-        <abp-button button-type="Primary" type="submit" text="@L["Submit"].Value" id="button-page-create" />
+        <abp-button button-type="Primary" type="submit" text="@L["Submit"].Value" id="button-content-box-create" />
     </abp-card-footer>
 </abp-card>
 <input hidden id="GeneratedWidgetText" />

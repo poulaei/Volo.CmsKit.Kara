@@ -37,36 +37,36 @@ public class ContentBoxesPublicController : CmsKitPublicControllerBase, IContent
     //}
     [HttpGet]
     [Route("by-section")]
-    public Task<ContentBoxDto> GetBySectionAsync(string section)
+    public Task<ContentBoxCommonDto> GetBySectionAsync(string section)
     {
         return ContentBoxAppService.GetBySectionAsync(section);
     }
     [HttpGet]
-    public Task<PagedResultDto<ContentBoxDto>> GetListAsync(ContentBoxGetListInput input)
+    public Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync(ContentBoxGetListInput input)
     {
         return ContentBoxAppService.GetListAsync(input);
     }
     [HttpGet]
     [Route("by-id")]
-    public Task<ContentBoxDto> GetAsync(Guid id)
+    public Task<ContentBoxCommonDto> GetAsync(Guid id)
     {
         return ContentBoxAppService.GetAsync(id);
     }
     [HttpGet]
     [Route("by-parent")]
-    public Task<ListResultDto<ContentBoxDto>> GetByParentAsync(Guid? parentId)
+    public Task<ListResultDto<ContentBoxCommonDto>> GetByParentAsync(Guid? parentId)
     {
         return ContentBoxAppService.GetByParentAsync(parentId);
     }
     [HttpGet]
     [Route("all")]
-    public Task<PagedResultDto<ContentBoxDto>> GetListAsync()
+    public Task<PagedResultDto<ContentBoxCommonDto>> GetListAsync()
     {
         return ContentBoxAppService.GetListAsync();
     }
     [HttpGet]
     [Route("get-hierarchy")]
-    public Task<List<HierarchyNode<ContentBoxDto>>> GetHierarchyAsync()
+    public Task<List<HierarchyNode<ContentBoxCommonDto>>> GetHierarchyAsync()
     {
         return ContentBoxAppService.GetHierarchyAsync();
     }
