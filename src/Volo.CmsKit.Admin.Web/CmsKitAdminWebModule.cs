@@ -112,8 +112,9 @@ namespace Volo.CmsKit.Admin.Web;
             // Added By Poolaei @1402/11/27
             options.Conventions.AddPageRoute("/CmsKit/GalleryImages/Index", "/Cms/GalleryManagement");
             options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Index", "/Cms/ContentBoxes");
-            options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Create", "/Cms/ContentBoxes/Create");
             options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Update", "/Cms/ContentBoxes/Update/{Id}");
+            //options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Create", "/Cms/ContentBoxes/Create");
+            options.Conventions.AddPageRoute("/CmsKit/ContentBoxes/Create", "/Cms/ContentBoxes/Create/{ParentId}");
         });
           
     Configure<AbpPageToolbarOptions>(options =>

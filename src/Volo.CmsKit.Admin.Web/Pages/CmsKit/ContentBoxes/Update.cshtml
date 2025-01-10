@@ -1,4 +1,4 @@
-﻿@page 
+﻿@page "{Id}"
 
 @using System.Globalization
 @using Microsoft.AspNetCore.Mvc.TagHelpers
@@ -11,19 +11,18 @@
 @using Volo.Abp.AspNetCore.Mvc.UI.Packages.Codemirror
 @using Volo.Abp.AspNetCore.Mvc.UI.Packages.TuiEditor
 @using Volo.Abp.AspNetCore.Mvc.UI.Packages.Uppy
-@using Volo.CmsKit.Admin.Web.Pages
-@using Volo.CmsKit.Admin.Web.Menus
 @using Volo.Abp.AspNetCore.Mvc.UI.Packages.Slugify
 @using Volo.Abp.Data
 @using Volo.Abp.Localization
 @using Volo.Abp.ObjectExtending
+@using Volo.CmsKit.Admin.Web.Menus
+@using Volo.CmsKit.Admin.Web.Pages
 @using Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes
-
 @inject IStringLocalizerFactory StringLocalizerFactory
 
 @inherits CmsKitAdminPageBase
 
-@model Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes.CreateModel
+@model Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes.UpdateModel
 
 @{
     PageLayout.Content.Title = L["ContentBoxes"].Value;
@@ -31,41 +30,31 @@
     PageLayout.Content.MenuItemName = CmsKitAdminMenus.ContentBoxes.ContentBoxMenu;
 }
 
+
 @section scripts {
-    <abp-script-bundle>
-        <abp-script type="typeof(TuiEditorScriptContributor)" />
-        <abp-script type="typeof(UppyScriptContributor)" />
-        <abp-script type="typeof(SlugifyScriptContributor)" />
-        <abp-script type="typeof(CodemirrorScriptContributor)"/>
-        <abp-script src="/libs/codemirror/mode/css/css.js"/>
-        <abp-script src="/libs/codemirror/mode/javascript/javascript.js"/>
-        <abp-script src="/client-proxies/cms-kit-common-proxy.js"/>
-        <abp-script src="/client-proxies/cms-kit-admin-proxy.js"/>
-        <abp-script src="/Pages/CmsKit/ContentBoxes/create.js" />
-        <abp-script src="/Pages/CmsKit/Contents/addWidgetModal.js" />
-    </abp-script-bundle>
+<abp-script-bundle>
+    <abp-script type="typeof(SlugifyScriptContributor)" />
+    <abp-script src="/client-proxies/cms-kit-common-proxy.js"/>
+    <abp-script src="/client-proxies/cms-kit-admin-proxy.js"/>
+    <abp-script src="/Pages/CmsKit/ContentBoxes/update.js" />
+    <abp-script src="/Pages/CmsKit/Contents/addWidgetModal.js" />
+</abp-script-bundle>
 }
 
 @section styles {
-    <abp-style-bundle>
-        <abp-style type="typeof(TuiEditorStyleContributor)" />
-        <abp-style type="typeof(CodemirrorStyleContributor)" />
-        <abp-style src="/Pages/CmsKit/ContentBoxes/create.css" />
-    </abp-style-bundle>
+<abp-style-bundle>
+    <abp-style src="/Pages/CmsKit/ContentBoxes/update.css" />
+</abp-style-bundle>
 }
-@* @Html.AntiForgeryToken() *@
-@* @{
-    var hasParentId = ViewData["ParentId"] != null;
-    var formAction = hasParentId ? Url.Page("/CmsKit/ContentBoxes/Create", new { ParentId = ViewData["ParentId"] }) : "/CmsKit/ContentBoxes/Create";
-    var test = formAction;
-} *@
-
 
 <abp-card>
-    <abp-card-header title="@L["New"].Value"></abp-card-header>
+    <abp-card-header title="@L["Update"].Value"></abp-card-header>
     <abp-card-body>
-        <form asp-page="/CmsKit/ContentBoxes/Create" asp-route-ParentId="@Model.ParentId" id="form-content-box-create">
-            <abp-input asp-for="@Model.ViewModel.ParentId" />
+        <form asp-page="/CmsKit/ContentBoxes/Update" id="form-content-box-update">
+            <abp-input asp-for="@Model.Id" />
+
+            <abp-input asp-for="@Model.ViewModel.ConcurrencyStamp" />
+
             <abp-input asp-for="@Model.ViewModel.Title" />
             <abp-input asp-for="ViewModel.Section" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxSectionInformation"]" />
             <abp-input asp-for="ViewModel.BoxType" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxBoxTypeInformation"]" />
@@ -79,63 +68,61 @@
             <abp-input asp-for="ViewModel.Description" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxDescriptionInformation"]" />
             <abp-input asp-for="ViewModel.Order" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxOrderInformation"]" />
 
-            <img class="" style="width:100px;height:100px" src="/images/no-image.png" loading="lazy" id="img-upload" alt="" />
-            <input type="file" id="ImageFile" class="form-control"  />
-            <abp-input asp-for="ViewModel.MediaId" type="hidden"  />
-            <abp-button button-type="Danger" type="button" text="@L["Delete"].Value" id="button-delete-image" />
-          
-           <div class="content-editor cms-kit-editor"
+           @*  <abp-input asp-for="@Model.ViewModel.Content" /> *@
+
+                    <div class="content-editor cms-kit-editor"
                          id="ContentEditor"
-                        @*  data-input-id="@Html.IdFor(x => x.ViewModel.Content)" *@
+                    @* data-input-id="@Html.IdFor(x => x.ViewModel.Content)" *@
                          data-language="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)">
-                   
-                    @(Html.Kendo()
-                        //Editor()
-                        //.Name("Content")
-                        .EditorFor(m => m.ViewModel.Content)
-                        .HtmlAttributes(new { style = "height:100%" })
-                        .StyleSheets(css => css
-                        .Add(Url.Content("~/shared/web/editor/editorStyles.css"))
-                        ).Encoded(false)
-                        .Tools(tools => tools
-                        .Clear()
-                        .Bold().Italic().Underline().Strikethrough()
-                        .Undo().Redo()
-                        .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
-                        .InsertUnorderedList().InsertOrderedList().InsertUpperRomanList().InsertLowerRomanList()
-                        .Outdent().Indent()
-                        .CreateLink().Unlink()
-                        .InsertImage()
-                        .InsertFile()
-                        .SubScript()
-                        .SuperScript()
-                        .TableEditing()
-                        .ViewHtml()
-                        .Formatting()
-                        .CleanFormatting()
-                        .FormatPainter()
-                        .FontName()
-                        .FontSize()
-                        .ForeColor().BackColor()
-                        .Print()
-                        // .CustomTemplate(x => x.Template("<label for='templateTool' style='vertical-align:middle;'>Background:</label> <select id='templateTool'><option value=''>none</option><option value='\\#ff9'>yellow</option><option value='\\#dfd'>green</option></select>"))
-                        .CustomButton(x => x.Name("FullScreen").Tooltip("Full Screen").Exec(@<text>
-                        function(e) {
-                        toggleFullScreen();
-                        }
-                    </text>))
-                        ).ImageBrowser(imageBrowser => imageBrowser
-                        .Image("~/shared/UserFiles/Images/{0}")
-                        .Read("Read", "ImageBrowser")
-                        .Create("Create", "ImageBrowser")
-                        .Destroy("Destroy", "ImageBrowser")
-                        .Upload("Upload", "ImageBrowser")
-                        )
-                        
-                        )
+
+                        @(Html.Kendo()
+                            //Editor()
+                            //.Name("Content")
+                            .EditorFor(m => m.ViewModel.Content)
+                            .HtmlAttributes(new { style = "height:100%" })
+                            .StyleSheets(css => css
+                            .Add(Url.Content("~/shared/web/editor/editorStyles.css"))
+                            ).Encoded(false)
+                            .Tools(tools => tools
+                            .Clear()
+                            .Bold().Italic().Underline().Strikethrough()
+                            .Undo().Redo()
+                            .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+                            .InsertUnorderedList().InsertOrderedList().InsertUpperRomanList().InsertLowerRomanList()
+                            .Outdent().Indent()
+                            .CreateLink().Unlink()
+                            .InsertImage()
+                            .InsertFile()
+                            .SubScript()
+                            .SuperScript()
+                            .TableEditing()
+                            .ViewHtml()
+                            .Formatting()
+                            .CleanFormatting()
+                            .FormatPainter()
+                            .FontName()
+                            .FontSize()
+                            .ForeColor().BackColor()
+                            .Print()
+                            // .CustomTemplate(x => x.Template("<label for='templateTool' style='vertical-align:middle;'>Background:</label> <select id='templateTool'><option value=''>none</option><option value='\\#ff9'>yellow</option><option value='\\#dfd'>green</option></select>"))
+                            .CustomButton(x => x.Name("FullScreen").Tooltip("Full Screen").Exec(@<text>
+                            function(e) {
+                            toggleFullScreen();
+                            }
+                        </text>))
+                            ).ImageBrowser(imageBrowser => imageBrowser
+                            .Image("~/shared/UserFiles/Images/{0}")
+                            .Read("Read", "ImageBrowser")
+                            .Create("Create", "ImageBrowser")
+                            .Destroy("Destroy", "ImageBrowser")
+                            .Upload("Upload", "ImageBrowser")
+                            )
+
+                            )
                     </div>
-                         
-            @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<CreateModel.CreateContentBoxViewModel>())
+               
+            
+            @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<UpdateModel.UpdateContentBoxViewModel>())
             {
                 if (!propertyInfo.Name.EndsWith("_Text"))
                 {
@@ -165,10 +152,11 @@
                     }
                 }
             }
+
         </form>
     </abp-card-body>
     <abp-card-footer>
-        <abp-button button-type="Primary" type="submit" text="@L["Submit"].Value" id="button-content-box-create" />
+        <abp-button button-type="Primary" type="submit" text="@L["Submit"].Value" id="button-content-box-update" />
         <abp-button button-type="Secondary" type="submit" text="@L["Return"].Value" id="button-content-box-return" />
     </abp-card-footer>
 </abp-card>

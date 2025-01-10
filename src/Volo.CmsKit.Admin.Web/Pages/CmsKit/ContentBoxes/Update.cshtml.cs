@@ -1,6 +1,6 @@
-﻿    using AutoMapper;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.VisualBasic.Syntax;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
@@ -12,89 +12,54 @@ using Volo.CmsKit.Admin.ContentBoxes;
 using Volo.CmsKit.Admin.Pages;
 using Volo.CmsKit.ContentBoxes;
 using Volo.CmsKit.Pages;
-using static Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes.UpdateModel;
 
 namespace Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes;
 
-public class CreateModel : CmsKitAdminPageModel
+public class UpdateModel : CmsKitAdminPageModel
 {
-    protected readonly IContentBoxAdminAppService contentBoxAdminAppService;
     [BindProperty(SupportsGet = true)]
     [HiddenInput]
-    public Guid? ParentId { get; set; }
+    public Guid Id { get; set; }
 
     [BindProperty]
-    public CreateContentBoxViewModel ViewModel { get; set; }
+    public UpdateContentBoxViewModel ViewModel { get; set; }
 
-    public CreateModel(IContentBoxAdminAppService contentBoxAdminAppService)
+    protected readonly IContentBoxAdminAppService contentBoxAdminAppService;
+
+    public UpdateModel(IContentBoxAdminAppService contentBoxAdminAppService)
     {
         this.contentBoxAdminAppService = contentBoxAdminAppService;
-        ViewModel = new CreateContentBoxViewModel();
     }
+
     public async Task OnGetAsync()
     {
-        // ViewData["ParentId"] = ParentId;
-        
-        if (ParentId.HasValue && Guid.TryParse(ParentId.Value.ToString(), out Guid result))
-        {
-            if (result == Guid.Empty)
-                await Task.Run(() => ViewModel.ParentId = null);
-            else
-            {
-                try
-                {
-                    var dto = await contentBoxAdminAppService.GetAsync(ParentId.Value);
-                }
-                catch (Exception)
-                {
+        var dto = await contentBoxAdminAppService.GetAsync(Id);
 
-                    throw new EntityNotFoundException();
-                }
-                await Task.Run(() => ViewModel.ParentId = result);
-            }
-        }
-        else
-        {
-            throw new FormatException();
-        }
-      
-
-        //return new OkObjectResult(ParentId);
+        ViewModel = ObjectMapper.Map<ContentBoxDto, UpdateContentBoxViewModel>(dto);
     }
-
-    //public void OnGetCreate()
-    //{
-    //    ViewData["ParentId"] = null;
-    //}
-
-    //public void OnGetCreateSubItem(int parentId)
-    //{
-        
-    //}
 
     public async Task<IActionResult> OnPostAsync()
     {
-        var createInput = ObjectMapper.Map<CreateContentBoxViewModel, CreateContentBoxDto>(ViewModel);
+        var updateInput = ObjectMapper.Map<UpdateContentBoxViewModel, UpdateContentBoxDto>(ViewModel);
 
-        var created = await contentBoxAdminAppService.CreateAsync(createInput);
-
-        return new OkObjectResult(created);
+        await contentBoxAdminAppService.UpdateAsync(Id, updateInput);
+        return new OkObjectResult(Id);
     }
 
-    [AutoMap(typeof(CreateContentBoxDto), ReverseMap = true)]
-    public class CreateContentBoxViewModel : ExtensibleObject
+    [AutoMap(typeof(ContentBoxDto))]
+    [AutoMap(typeof(UpdateContentBoxDto), ReverseMap = true)]
+    public class UpdateContentBoxViewModel : ExtensibleObject, IHasConcurrencyStamp
     {
-        [HiddenInput]
         public Guid? ParentId { get; set; }
         [Required]
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.SectionMaxLength))]
-        public  string Section { get; set; }
+        public string Section { get; set; }
         [Required]
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.BoxTypeMaxLength))]
-        public  string BoxType { get; set; }
+        public string BoxType { get; set; }
         [Required]
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.BoxNameMaxLength))]
-        public  string BoxName { get; set; }
+        public string BoxName { get; set; }
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.ContentMaxLength))]
         public string Content { get; set; }
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.TitleMaxLength))]
@@ -113,7 +78,9 @@ public class CreateModel : CmsKitAdminPageModel
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.DescriptionMaxLength))]
         public string? Description { get; set; }
         public int Order { get; set; }
-        [HiddenInput]
         public Guid? MediaId { get; set; }
+
+        [HiddenInput]
+        public string ConcurrencyStamp { get; set; }
     }
 }
