@@ -179,7 +179,10 @@ $(function () {
         },
 
         getTreeDataFromServer: function (callback) {
-            menuService.getList('').done(function (result) {
+            menuService.getList({
+                filter: '',
+                maxResultCount: 1000
+            }).done(function (result) {
                 var treeData = _.map(result.items, function (item) {
                     return {
                         id: item.id,

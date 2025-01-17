@@ -32,19 +32,20 @@
 
 
 @section scripts {
-<abp-script-bundle>
-    <abp-script type="typeof(SlugifyScriptContributor)" />
-    <abp-script src="/client-proxies/cms-kit-common-proxy.js"/>
-    <abp-script src="/client-proxies/cms-kit-admin-proxy.js"/>
-    <abp-script src="/Pages/CmsKit/ContentBoxes/update.js" />
-    <abp-script src="/Pages/CmsKit/Contents/addWidgetModal.js" />
-</abp-script-bundle>
+    <abp-script-bundle>
+        <abp-script type="typeof(SlugifyScriptContributor)" />
+        <abp-script src="/client-proxies/cms-kit-common-proxy.js" />
+        <abp-script src="/client-proxies/cms-kit-admin-proxy.js" />
+        <abp-script src="/Pages/CmsKit/Contents/addWidgetModal.js" />
+        <abp-script src="/Pages/CmsKit/ContentBoxes/mediaUploader.js" />
+        <abp-script src="/Pages/CmsKit/ContentBoxes/update.js" />
+    </abp-script-bundle>
 }
 
 @section styles {
-<abp-style-bundle>
-    <abp-style src="/Pages/CmsKit/ContentBoxes/update.css" />
-</abp-style-bundle>
+    <abp-style-bundle>
+        <abp-style src="/Pages/CmsKit/ContentBoxes/update.css" />
+    </abp-style-bundle>
 }
 
 <abp-card>
@@ -67,61 +68,64 @@
             <abp-input asp-for="ViewModel.Icon" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxIconInformation"]" />
             <abp-input asp-for="ViewModel.Description" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxDescriptionInformation"]" />
             <abp-input asp-for="ViewModel.Order" label-tooltip-icon="fa fa-info-circle" label-tooltip="@L["ContentBoxOrderInformation"]" />
+            <img class="img-fluid rounded" style="width:100px;height:100px" src="/images/no-image.png" loading="lazy" id="img-upload" alt="" />
+            <input type="file" id="ImageFile" class="form-control" />
+            <abp-input asp-for="ViewModel.MediaId" type="hidden" />
+            <abp-button button-type="Danger" type="button" text="@L["Delete"].Value" id="button-delete-image" />
 
-           @*  <abp-input asp-for="@Model.ViewModel.Content" /> *@
 
-                    <div class="content-editor cms-kit-editor"
-                         id="ContentEditor"
-                    @* data-input-id="@Html.IdFor(x => x.ViewModel.Content)" *@
-                         data-language="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)">
+            <div class="content-editor cms-kit-editor"
+                 id="ContentEditor"
+            @* data-input-id="@Html.IdFor(x => x.ViewModel.Content)" *@
+                 data-language="@(CultureInfo.CurrentUICulture.TwoLetterISOLanguageName)">
 
-                        @(Html.Kendo()
-                            //Editor()
-                            //.Name("Content")
-                            .EditorFor(m => m.ViewModel.Content)
-                            .HtmlAttributes(new { style = "height:100%" })
-                            .StyleSheets(css => css
-                            .Add(Url.Content("~/shared/web/editor/editorStyles.css"))
-                            ).Encoded(false)
-                            .Tools(tools => tools
-                            .Clear()
-                            .Bold().Italic().Underline().Strikethrough()
-                            .Undo().Redo()
-                            .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
-                            .InsertUnorderedList().InsertOrderedList().InsertUpperRomanList().InsertLowerRomanList()
-                            .Outdent().Indent()
-                            .CreateLink().Unlink()
-                            .InsertImage()
-                            .InsertFile()
-                            .SubScript()
-                            .SuperScript()
-                            .TableEditing()
-                            .ViewHtml()
-                            .Formatting()
-                            .CleanFormatting()
-                            .FormatPainter()
-                            .FontName()
-                            .FontSize()
-                            .ForeColor().BackColor()
-                            .Print()
-                            // .CustomTemplate(x => x.Template("<label for='templateTool' style='vertical-align:middle;'>Background:</label> <select id='templateTool'><option value=''>none</option><option value='\\#ff9'>yellow</option><option value='\\#dfd'>green</option></select>"))
-                            .CustomButton(x => x.Name("FullScreen").Tooltip("Full Screen").Exec(@<text>
-                            function(e) {
-                            toggleFullScreen();
-                            }
-                        </text>))
-                            ).ImageBrowser(imageBrowser => imageBrowser
-                            .Image("~/shared/UserFiles/Images/{0}")
-                            .Read("Read", "ImageBrowser")
-                            .Create("Create", "ImageBrowser")
-                            .Destroy("Destroy", "ImageBrowser")
-                            .Upload("Upload", "ImageBrowser")
-                            )
+                @(Html.Kendo()
+                    //Editor()
+                    //.Name("Content")
+                    .EditorFor(m => m.ViewModel.Content)
+                    .HtmlAttributes(new { style = "height:100%" })
+                    .StyleSheets(css => css
+                    .Add(Url.Content("~/shared/web/editor/editorStyles.css"))
+                    ).Encoded(false)
+                    .Tools(tools => tools
+                    .Clear()
+                    .Bold().Italic().Underline().Strikethrough()
+                    .Undo().Redo()
+                    .JustifyLeft().JustifyCenter().JustifyRight().JustifyFull()
+                    .InsertUnorderedList().InsertOrderedList().InsertUpperRomanList().InsertLowerRomanList()
+                    .Outdent().Indent()
+                    .CreateLink().Unlink()
+                    .InsertImage()
+                    .InsertFile()
+                    .SubScript()
+                    .SuperScript()
+                    .TableEditing()
+                    .ViewHtml()
+                    .Formatting()
+                    .CleanFormatting()
+                    .FormatPainter()
+                    .FontName()
+                    .FontSize()
+                    .ForeColor().BackColor()
+                    .Print()
+                    // .CustomTemplate(x => x.Template("<label for='templateTool' style='vertical-align:middle;'>Background:</label> <select id='templateTool'><option value=''>none</option><option value='\\#ff9'>yellow</option><option value='\\#dfd'>green</option></select>"))
+                    .CustomButton(x => x.Name("FullScreen").Tooltip("Full Screen").Exec(@<text>
+                    function(e) {
+                    toggleFullScreen();
+                    }
+                </text>))
+                    ).ImageBrowser(imageBrowser => imageBrowser
+                    .Image("~/shared/UserFiles/Images/{0}")
+                    .Read("Read", "ImageBrowser")
+                    .Create("Create", "ImageBrowser")
+                    .Destroy("Destroy", "ImageBrowser")
+                    .Upload("Upload", "ImageBrowser")
+                    )
 
-                            )
-                    </div>
-               
-            
+                    )
+            </div>
+
+
             @foreach (var propertyInfo in ObjectExtensionManager.Instance.GetProperties<UpdateModel.UpdateContentBoxViewModel>())
             {
                 if (!propertyInfo.Name.EndsWith("_Text"))

@@ -395,7 +395,12 @@
 	$('.popup-video').magnificPopup({
 		type: 'iframe'
 	});
-
+	$('.popup-video-inline').magnificPopup({
+		type: 'inline',
+		midClick: true, // باز شدن پاپ‌آپ با کلیک وسط
+		removalDelay: 300,
+		mainClass: 'mfp-fade', // افکت ظاهر شدن
+	});
 	/* magnificPopup video view */
 	$('.popup__link').magnificPopup({
 		type: 'image'

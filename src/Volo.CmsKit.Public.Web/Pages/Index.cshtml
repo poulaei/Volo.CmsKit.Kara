@@ -7,6 +7,8 @@
 @model Volo.CmsKit.Pages.IndexModel
 @using Volo.Abp.AspNetCore.Mvc.UI.Theming
 @inject IThemeManager ThemeManager
+
+
 @{
     Layout = ThemeManager.CurrentTheme.GetPublicLayout();
 }
@@ -20,17 +22,17 @@
 }
 
 <main>
-    <section class="theme__main__banner position-relative" style="background-image:url(/api/cms-kit/media/@Model.Image.CoverImageMediaId)">
+    <section class="theme__main__banner position-relative" style="background-image:url(/api/cms-kit/media/@Model.BannerViewModel.MediaId)">
         <div class="main__banner__bg" data-aos="fade-up">
             <div class="main__banner__content">
                 <div class="container-fluid position-relative">
                     <div class="row align-items-center pt-380 pb-230 pt-lg-190 pb-lg-90">
                         <div class="col-xl-8">
                             <div class="theme__content position-relative text-xl-start">
-                                <div class="row"><div class="col-xxl-10"><h1 class="banner__main__title mb-25">پایه بر قدرت تکیه دارد.</h1></div></div>
-                                <div class="row"><div class="col-xxl-6"><p class="banner__description mb-40">در تمام تلاش ها، ایجاد و پایه ای قوی برای ثبات پایدار و رشد پایدار حیاتی است.</p></div></div>
+                                <div class="row"><div class="col-xxl-10"><h1 class="banner__main__title mb-25">@Model.BannerViewModel.Title</h1></div></div>
+                                <div class="row"><div class="col-xxl-6"><p class="banner__description mb-40">@Model.BannerViewModel.Summary</p></div></div>
                                 <div class="banner__button d-flex align-items-center">
-                                    <a href="contact.html" class="ht_btn mb-lg-30"><span>شروع کنید</span></a><a href="contact.html" class="ht_btn ht__btn__two"><span>از همه پروژه ها دیدن کنید</span></a>
+                                    <a href="@Model.BannerViewModel.ActionUrl" class="ht_btn mb-lg-30"><span>@Model.BannerViewModel.Action</span></a><a href="contact.html" class="ht_btn ht__btn__two"><span>@Model.BannerViewModel.Children[0].Action</span></a>
                                 </div>
                             </div>
                         </div>
@@ -45,9 +47,9 @@
                 <div class="row align-items-center">
                     <div class="col-xl-5">
                         <div class="section__title mb-lg-50">
-                            <div class="row"><div class="col-xl-11 col-lg-12"><h2 class="section__title__main position-relative mb-30">ساخت و ساز، پشتیبانی معماری.</h2></div></div>
-                            <div class="row"><div class="col-xl-10"><p class="section__description mb-30">تخصص ما شامل معماری، ساخت و ساز و طراحی داخلی است.</p></div></div>
-                            <div class="section__button d-flex align-items-center"><a href="contact.html" class="ht_btn"><span>ادامه مطلب</span></a></div>
+                            <div class="row"><div class="col-xl-11 col-lg-12"><h2 class="section__title__main position-relative mb-30">@Model.AboutViewModel.Title</h2></div></div>
+                            <div class="row"><div class="col-xl-10"><p class="section__description mb-30">@Model.VideoViewModel.Summary</p></div></div>
+                            <div class="section__button d-flex align-items-center"><a href="@Model.AboutViewModel.ActionUrl" class="ht_btn"><span>@Model.AboutViewModel.Action</span></a></div>
                         </div>
                     </div>
                     <div class="col-xl-7">
@@ -55,21 +57,21 @@
                             <div class="accordion" id="accordionOne">
                                 <div class="item">
                                     <div class="d-flex align-items-center" id="headingOne">
-                                        <span class="item__number">01.</span><button class="accordian__btn__one" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">کارشناسان ماهر</button>
+                                        <span class="item__number">01.</span><button class="accordian__btn__one" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">@Model.AboutViewModel.Children[0].Title</button>
                                     </div>
-                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">کارشناسان ماهر در زمینه خود برتر هستند و بینش های ارزشمندی را ارائه می دهند و استانداردهای استثنایی را برای دیگران ارائه می دهند.</p></div></div>
+                                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">@Model.AboutViewModel.Children[0].Summary</p></div></div>
                                 </div>
                                 <div class="item mt-20">
                                     <div class="d-flex align-items-center" id="headingTwo">
-                                        <span class="item__number">02.</span><button class="accordian__btn__one collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">مدل های تایید شده</button>
+                                        <span class="item__number">02.</span><button class="accordian__btn__one collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">@Model.AboutViewModel.Children[1].Title</button>
                                     </div>
-                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">کارشناسان ماهر در زمینه خود برتر هستند و بینش های ارزشمندی را ارائه می دهند و استانداردهای استثنایی را برای دیگران ارائه می دهند.</p></div></div>
+                                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">@Model.AboutViewModel.Children[1].Summary</p></div></div>
                                 </div>
                                 <div class="item mt-20">
                                     <div class="d-flex align-items-center" id="headingThree">
-                                        <span class="item__number">03.</span><button class="accordian__btn__one collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">معماری</button>
+                                        <span class="item__number">03.</span><button class="accordian__btn__one collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">@Model.AboutViewModel.Children[2].Title</button>
                                     </div>
-                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">کارشناسان ماهر در زمینه خود برتر هستند و بینش های ارزشمندی را ارائه می دهند و استانداردهای استثنایی را برای دیگران ارائه می دهند.</p></div></div>
+                                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionOne"><div class="accordion-body"><p class="section__description opacity-5">@Model.AboutViewModel.Children[2].Summary</p></div></div>
                                 </div>
                             </div>
                         </div>
@@ -83,25 +85,25 @@
                     <div class="col-lg-4">
                         <div class="fact__one mb-lg-30">
                             <h1 class="banner__main__title">
-                                <span class="counter">25</span>k+
+                                <span class="counter">@Model.AboutViewModel.Children[3].Children[0].Title</span>@Model.AboutViewModel.Children[3].Children[0].Summary
                             </h1>
-                            <div class="row "><div class="col-5 text-start text-lg-center"><small class="">پروژه های موفق</small></div></div>
+                            <div class="row "><div class="col-5 text-start text-lg-center"><small class="">@Model.AboutViewModel.Children[3].Title</small></div></div>
                         </div>
                     </div>
                     <div class="col-lg-4 text-start text-lg-center">
                         <div class="fact__one mb-lg-30">
                             <h1 class="banner__main__title">
-                                <span class="counter">1.4</span>%
+                                <span class="counter">@Model.AboutViewModel.Children[3].Children[1].Title</span>@Model.AboutViewModel.Children[3].Children[1].Summary
                             </h1>
-                            <div class="row "><div class="col-12 text-start text-lg-center"><small class="">پروژه های موفق</small></div></div>
+                            <div class="row "><div class="col-12 text-start text-lg-center"><small class="">@Model.AboutViewModel.Children[3].Title</small></div></div>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="fact__one text-start text-lg-end">
                             <h1 class="banner__main__title">
-                                <span class="counter">2.5</span>mil+
+                                <span class="counter">@Model.AboutViewModel.Children[3].Children[2].Title</span>@Model.AboutViewModel.Children[3].Children[2].Summary
                             </h1>
-                            <div class="row"><div class="col-12 text-start text-lg-center ml-40 ml-md-0"><small class="">پروژه های موفق</small></div></div>
+                            <div class="row"><div class="col-12 text-start text-lg-center ml-40 ml-md-0"><small class="">@Model.AboutViewModel.Children[3].Title</small></div></div>
                         </div>
                     </div>
                 </div>
@@ -109,15 +111,15 @@
         </div>
         <img src="/assets/img/bg/home__one__section__one.svg" alt="" class="shapes w-100 section__one__bg"><img src="/assets/img/shape/star__shape__02.png" alt="" class="shapes star__shape__02">
     </section>
-    <section class="video__section home__one__section__two position-relative">
+    <section class="video__section home__one__section__two position-relative" style="background-image:url(/api/cms-kit/media/@Model.VideoViewModel.MediaId)">
         <div class="video__section__wrapper pb-lg-30 pb-lg-30" data-aos="fade-up">
             <div class="container">
                 <div class="row">
                     <div class="col-xxl-5 pb-100">
                         <div class="video__content">
                             <div class="section__title">
-                                <div class="row"><div class="col-xl-11 col-lg-12"><h2 class="section__title__main position-relative mb-35">مزایای انتخاب ما.</h2></div></div>
-                                <div class="row"><div class="col-xl-10"><p class="section__description mb-60">ما سال ها تخصص و تجربه صنعت را به میز می آوریم و اطمینان می دهیم که می توانیم نتیجه بگیریم.</p></div></div>
+                                <div class="row"><div class="col-xl-11 col-lg-12"><h2 class="section__title__main position-relative mb-35">@Model.VideoViewModel.Title</h2></div></div>
+                                <div class="row"><div class="col-xl-10"><p class="section__description mb-60">@Model.VideoViewModel.Summary</p></div></div>
                             </div>
                             <div class="form__list">
                                 <div class="form-check mb-30 d-flex align-items-center">
@@ -134,13 +136,20 @@
                                 </div>
                             </div>
                             <div class="row mt-80 mt-lg-40 mb-30">
-                                <div class="col-lg-6"><div class="contact__number mb-lg-30"><h6 class="section__sub__title__five"><a href="contact.html">into@746gmail.com</a></h6></div></div>
-                                <div class="col-lg-6"><div class="contact__number"><h6 class="section__sub__title__five"><a href="contact.html">+9065968585</a></h6></div></div>
+                                <div class="col-lg-6"><div class="contact__number mb-lg-30"><h6 class="section__sub__title__five"><a href="@Model.VideoViewModel.Children[1].ActionUrl">@Model.VideoViewModel.Children[1].Action</a></h6></div></div>
+                                <div class="col-lg-6"><div class="contact__number"><h6 class="section__sub__title__five"><a href="@Model.VideoViewModel.Children[2].ActionUrl">@Model.VideoViewModel.Children[2].Action</a></h6></div></div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a href="https://www.youtube.com/watch?v=lTxn2BuqyzU" class="popup-video"><img src="/assets/img/icon/play__01.png" alt="icon"></a>
+                <a href="#video-content" class="popup-video popup-video-inline"><img src="/assets/img/icon/play__01.png" alt="icon"></a>
+                <div id="video-content" class="mfp-hide" style="text-align:center">
+                    <video style="width: 50%; height: auto;" controls autoplay muted>
+                    <source src="/api/cms-kit/media/@Model.VideoViewModel.Children[3].MediaId" type="video/mp4">
+                   
+                    Your browser does not support the video tag.
+                    </video>
+                </div>
             </div>
         </div>
     </section>

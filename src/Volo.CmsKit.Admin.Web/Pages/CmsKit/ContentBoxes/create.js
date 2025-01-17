@@ -3,7 +3,7 @@ $(function () {
     
     var $createForm = $('#form-content-box-create');
     var $title = $('#ViewModel_Title');
-    initImageUploader();
+    volo.cmsKit.admin.web.ImageUploader();
     var $buttonSubmit = $('#button-content-box-create');
     var $buttonReturn = $('#button-content-box-return');
     var widgetModal = new abp.ModalManager({ viewUrl: abp.appPath + "CmsKit/Contents/AddWidgetModal", modalClass: "addWidgetModal" });

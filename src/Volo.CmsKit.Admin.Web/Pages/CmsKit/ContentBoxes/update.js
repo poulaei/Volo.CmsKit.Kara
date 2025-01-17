@@ -1,14 +1,11 @@
 $(function () {
-
     var l = abp.localization.getResource("CmsKit");
-
     var $formUpdate = $('#form-content-box-update');
+    volo.cmsKit.admin.web.ImageUploader();
     var $buttonSubmit = $('#button-content-box-update');
     var $buttonReturn = $('#button-content-box-return');
     var widgetModal = new abp.ModalManager({ viewUrl: abp.appPath + "CmsKit/Contents/AddWidgetModal", modalClass: "addWidgetModal" });
-
     $formUpdate.data('validator').settings.ignore = ":hidden, [contenteditable='true']:not([name]), .tui-popup-wrapper";
-
 
     $formUpdate.on('submit', function (e) {
         e.preventDefault();
@@ -20,13 +17,9 @@ $(function () {
                 success: function (result) {
                     abp.notify.success(l('SuccessfullySaved'));
                     abp.ui.clearBusy();
-                    //location.href = "/Cms/ContentBoxes";
-                    console.log(result);
-                    //location.href = '/Cms/ContentBoxes/Update/' + result.id;
                 },
                 error: function (result) {
                     abp.ui.clearBusy();
-                    console.log(result.responseJSON);
                     abp.notify.error(result.responseJSON.error.message);
                 }
             });
@@ -42,8 +35,6 @@ $(function () {
         location.href = "/Cms/ContentBoxes";
     });
     // -----------------------------------
-    
-
     function createAddWidgetButton() {
         const button = document.createElement('button');
 
@@ -58,6 +49,7 @@ $(function () {
 
         return button;
     }
+  
 });
 var classHolder = $(document.documentElement);
 var fullscreenChange = "webkitfullscreenchange mozfullscreenchange fullscreenchange MSFullscreenChange";

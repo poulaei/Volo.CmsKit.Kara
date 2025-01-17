@@ -109,7 +109,19 @@ public class ContentBoxAdminAppService : CmsKitAdminAppServiceBase, IContentBoxA
 
         if (box.MediaId != null && input.MediaId == null)
         {
-            await MediaDescriptorAdminAppService.DeleteAsync(box.MediaId.Value);
+            //ممکن است به هر دلیلی مدیا پاک شده  ولی شناسه مدیا در جدول مورد نظر وجود داشته باشد
+            //بنابراین حذف مدیا با خطا مواجه شده در نتیجه به روززسانی موجودیت موردنظر هم انجام نحواهد شد
+            //برای جلوگیری از این اتفاق خطای  حذف شناسه گرفته می شود
+            //TODO:  راهکار بهتر
+           try
+            {
+                await MediaDescriptorAdminAppService.DeleteAsync(box.MediaId.Value);
+            }
+            catch (Exception)
+            {
+
+            }
+           
         }
         box.MediaId = input.MediaId;
 

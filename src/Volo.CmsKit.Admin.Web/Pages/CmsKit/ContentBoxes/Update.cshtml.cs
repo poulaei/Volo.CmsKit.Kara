@@ -9,8 +9,10 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.ObjectExtending;
 using Volo.Abp.Validation;
 using Volo.CmsKit.Admin.ContentBoxes;
+using Volo.CmsKit.Admin.MediaDescriptors;
 using Volo.CmsKit.Admin.Pages;
 using Volo.CmsKit.ContentBoxes;
+using Volo.CmsKit.MediaDescriptors;
 using Volo.CmsKit.Pages;
 
 namespace Volo.CmsKit.Admin.Web.Pages.CmsKit.ContentBoxes;
@@ -25,10 +27,12 @@ public class UpdateModel : CmsKitAdminPageModel
     public UpdateContentBoxViewModel ViewModel { get; set; }
 
     protected readonly IContentBoxAdminAppService contentBoxAdminAppService;
+    protected readonly IMediaDescriptorAdminAppService mediaDescriptorAdminAppService;
 
-    public UpdateModel(IContentBoxAdminAppService contentBoxAdminAppService)
+    public UpdateModel(IContentBoxAdminAppService contentBoxAdminAppService, IMediaDescriptorAdminAppService mediaDescriptorAdminAppService)
     {
         this.contentBoxAdminAppService = contentBoxAdminAppService;
+        this.mediaDescriptorAdminAppService = mediaDescriptorAdminAppService;
     }
 
     public async Task OnGetAsync()
@@ -41,7 +45,6 @@ public class UpdateModel : CmsKitAdminPageModel
     public async Task<IActionResult> OnPostAsync()
     {
         var updateInput = ObjectMapper.Map<UpdateContentBoxViewModel, UpdateContentBoxDto>(ViewModel);
-
         await contentBoxAdminAppService.UpdateAsync(Id, updateInput);
         return new OkObjectResult(Id);
     }
@@ -78,6 +81,7 @@ public class UpdateModel : CmsKitAdminPageModel
         [DynamicMaxLength(typeof(ContentBoxConsts), nameof(ContentBoxConsts.DescriptionMaxLength))]
         public string? Description { get; set; }
         public int Order { get; set; }
+        [HiddenInput]
         public Guid? MediaId { get; set; }
 
         [HiddenInput]
